@@ -8,7 +8,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./target/module-a-1.0:/usr/local/tomcat/webapps/ROOT
+      - ./ServletJSP/target/ServletJSP-1.0:/usr/local/tomcat/webapps/ROOT
     environment:
       TZ: Asia/Shanghai
 
@@ -39,57 +39,6 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=50
-      - NODE_MAX_SESSION=50
-      - START_XVFB=false
-  chrome2:
-    image: selenium/node-chrome:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=50
-      - NODE_MAX_SESSION=50
-      - START_XVFB=false
-
-  chrome3:
-    image: selenium/node-chrome:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=50
-      - NODE_MAX_SESSION=50
-      - START_XVFB=false
-
-  chrome4:
-    image: selenium/node-chrome:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=50
-      - NODE_MAX_SESSION=50
-      - START_XVFB=false
-
-  chrome5:
-    image: selenium/node-chrome:latest
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=50
-      - NODE_MAX_SESSION=50
+      - NODE_MAX_INSTANCES=5
+      - NODE_MAX_SESSION=5
       - START_XVFB=false

@@ -7,7 +7,7 @@
         <groupId>com.example.kent</groupId>
         <version>1.0</version>
     </parent>
-    <modelVersion>1.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mysql-insert</artifactId>
 
@@ -22,6 +22,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.26</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
