@@ -142,3 +142,14 @@ JSP 是类似 PHP 的一种 Java Web 应用，
 
 访问 `http://localhost:8080/index.jsp`，Tomcat 会自动编译并运行该文件，
 如果修改了 jsp，Tomcat 也会自动重新编译。
+
+## JavaServer Faces 应用
+
+JavaServer Faces 简称 JSF，是一种类似 ASP.NET 用户界面组件的技术，
+它在服务端把 Web UI 抽象成一系列组件， 在 html 中放置服务器组件标签来显示它们。
+开发者还可以自定义组件。
+
+经过 IDE 的支持，它使得开发者能以拖放组件，设置组件属性的方式来开发 Java Web 应用。
+这种技术实际是在模仿早年的 .NET 用户界面技术。
+
+但现在它已经过时了，基本上没人用，这里就不介绍了。
