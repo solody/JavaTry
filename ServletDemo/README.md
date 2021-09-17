@@ -121,3 +121,24 @@ javac -cp /usr/local/tomcat/lib/servlet-api.jar webapps/ROOT/WEB-INF/classes/MyS
 
 > 查看官方文档了解更多关于 Servlet 的知识 https://javaee.github.io/tutorial/servlets.html
 
+## JSP 页面
+
+JSP 是类似 PHP 的一种 Java Web 应用，
+本质上它会被容器自动编译为 Servlet 运行。
+
+创建 `./index.jsp` 文件：
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<%="Hello JSP!"%>
+</body>
+</html>
+```
+
+访问 `http://localhost:8080/index.jsp`，Tomcat 会自动编译并运行该文件，
+如果修改了 jsp，Tomcat 也会自动重新编译。
