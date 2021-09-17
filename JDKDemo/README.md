@@ -173,14 +173,15 @@ Created-By: Kent
 ```
 这里起主要作用的是第二行，它指定了 jar 文件的主类，主类将作为 jar 文件执行的入口。
 
-然后通过 JDK 提供的 jar 命令打包
+然后通过 JDK 提供的 jar 命令打包：
 ```bash
 jar --create \
 --file Hello.jar \
 --manifest mainfest.mf \
 Hello.class my/People.class
 ```
-运行 jar 包：
+该命令会生成一个 `Hello.jar` 文件，
+可以直接运行这个 jar 包：
 ```bash
 java -jar Hello.jar
 ```
