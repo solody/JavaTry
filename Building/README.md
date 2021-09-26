@@ -23,3 +23,14 @@
 [Maven Archetype Plugin](https://maven.apache.org/archetype/maven-archetype-plugin/index.html)
 ### 构建过程
 [Introduction to the Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+
+## 重要资源
+
+我们一般会去 https://mvnrepository.com/
+搜索 maven 包，然后根据包主页上的指引，把包引用到自己的项目中去。
+
+当我们想知道应用如何使用一个包时，一般是点开包主页上的 HomePage 链接，
+就能打开项目的官方主页了，在上面一般能找到相关的使用文档。
+大多数包的项目主页都是填写 github 仓库，点开会显示仓库根目录的 README.md 文档。
+然而也有很多包根本没有 HomePage 链接，这时，我们可以自行 Google，
+找到项目官网文档。 
