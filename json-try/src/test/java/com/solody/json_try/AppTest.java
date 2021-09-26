@@ -3,6 +3,7 @@ package com.solody.json_try;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.json.JSONObject;
 
 /**
  * Unit test for simple App.
@@ -33,6 +34,28 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+        JSONObject jo = new JSONObject("""
+                {
+                    "a": "123",
+                    "b": "456",
+                    "c": {"a": "1", "b": "2"},
+                    "d": [
+                        {"a": "1", "b": "2"},
+                        {"a": "1", "b": "2"},
+                        {"a": "1", "b": "2"}
+                    ],
+                    "e": {},
+                    "f": [],
+                    "g": "01ww",
+                    "h": true
+                }
+                """);
+        assertEquals("123", jo.get("a"));
+        assertEquals("org.json.JSONObject", jo.get("c").getClass().getName());
+        assertEquals("org.json.JSONArray", jo.get("d").getClass().getName());
+        assertEquals("org.json.JSONObject", jo.get("e").getClass().getName());
+        assertEquals("org.json.JSONArray", jo.get("f").getClass().getName());
+        assertEquals("java.lang.String", jo.get("g").getClass().getName());
+        assertEquals("java.lang.Boolean", jo.get("h").getClass().getName());
     }
 }
