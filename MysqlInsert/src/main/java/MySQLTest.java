@@ -18,7 +18,6 @@ public class MySQLTest {
     private static final String JDBC_PASSWORD = "123";
 
     private static Instant start;
-    private static Instant end;
 
     public static void main(String[] args) throws Exception {
         System.out.println("Application started!");
@@ -101,7 +100,7 @@ public class MySQLTest {
     }
 
     private static void report() {
-        end = Instant.now();
+        Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toMillis();
         System.out.println("用时" + timeElapsed + "毫秒");
     }
