@@ -29,10 +29,10 @@ public class MySQLTest {
         start = Instant.now();
 
         // 不使用连接池
-        insertData(conn);
+        // insertData(conn);
 
         // 使用连接池
-        //insertData(connectionPool());
+        insertData(connectionPool());
     }
 
     private static Connection jdbcConnection() throws SQLException {
@@ -46,7 +46,7 @@ public class MySQLTest {
         config.setPassword(JDBC_PASSWORD);
         config.addDataSourceProperty("connectionTimeout", "1000"); // 连接超时：1秒
         config.addDataSourceProperty("idleTimeout", "60000"); // 空闲超时：60秒
-        config.addDataSourceProperty("maximumPoolSize", "100"); // 最大连接数：10
+        config.addDataSourceProperty("maximumPoolSize", "10000"); // 最大连接数：10
         HikariDataSource dataSource = new HikariDataSource(config);
         return dataSource.getConnection();
     }
@@ -62,7 +62,7 @@ public class MySQLTest {
                       grade INT NOT NULL,
                       score INT NOT NULL,
                       PRIMARY KEY(id)
-                    ) Engine=INNODB DEFAULT CHARSET=UTF8;
+                    ) Engine=MEMORY DEFAULT CHARSET=UTF8;
                     """);
         } catch (Exception exception){
             System.out.println("Table had been created, don't create again.");
@@ -72,8 +72,8 @@ public class MySQLTest {
     private static void insertData(Connection conn) throws SQLException {
         final Statement stmt = conn.createStatement();
         // 创建一个固定大小的线程池:
-        ExecutorService es = Executors.newFixedThreadPool(100);
-        for (long i = 0; i < 100L; i++){
+        ExecutorService es = Executors.newFixedThreadPool(1000);
+        for (long i = 0; i < 1000L; i++){
             Thread t = new Thread(() -> {
                 for (long ii = 0; ii < 10L; ii++){
                     try {
