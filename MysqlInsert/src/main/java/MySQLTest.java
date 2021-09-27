@@ -21,14 +21,18 @@ public class MySQLTest {
     private static Instant end;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Application started!!!!!!==============");
+        System.out.println("Application started!");
 
         Connection conn = jdbcConnection();
 
         createTable(conn);
 
         start = Instant.now();
+
+        // 不使用连接池
         insertData(conn);
+
+        // 使用连接池
         //insertData(connectionPool());
     }
 
@@ -43,7 +47,7 @@ public class MySQLTest {
         config.setPassword(JDBC_PASSWORD);
         config.addDataSourceProperty("connectionTimeout", "1000"); // 连接超时：1秒
         config.addDataSourceProperty("idleTimeout", "60000"); // 空闲超时：60秒
-        config.addDataSourceProperty("maximumPoolSize", "1000"); // 最大连接数：10
+        config.addDataSourceProperty("maximumPoolSize", "100"); // 最大连接数：10
         HikariDataSource dataSource = new HikariDataSource(config);
         return dataSource.getConnection();
     }
@@ -69,29 +73,26 @@ public class MySQLTest {
     private static void insertData(Connection conn) throws SQLException {
         final Statement stmt = conn.createStatement();
         // 创建一个固定大小的线程池:
-        ExecutorService es = Executors.newFixedThreadPool(10);
-        for (long i = 0; i < 400L; i++){
-            Thread t = new Thread() {
-                public void run() {
-                    for (long ii = 0; ii < 2L; ii++) {
-
-                        try {
-                            final String insert = "INSERT INTO students (name, gender, grade, score) VALUES ('小明" + ii + "', 1, 1, 88);";
-                            System.out.println(insert);
-
-                            stmt.execute(insert);
-                        } catch (Exception exception) {
-                            System.out.println(exception.toString());
-                        }
+        ExecutorService es = Executors.newFixedThreadPool(100);
+        for (long i = 0; i < 100L; i++){
+            Thread t = new Thread(() -> {
+                for (long ii = 0; ii < 10L; ii++){
+                    try {
+                        final String insert = "INSERT INTO students (name, gender, grade, score) VALUES ('小明', 1, 1, 88);";
+                        stmt.execute(insert);
+                    } catch (Exception exception) {
+                        System.out.println(exception.getMessage());
                     }
-                    synchronized(Counter.lock) { // 获取锁
-                        Counter.count--;
-                        if (Counter.count == 0) {
-                            report();
-                        }
-                    } // 释放锁
                 }
-            };
+                synchronized(Counter.lock) { // 获取锁
+                    Counter.count--;
+                    if (Counter.count == 0) {
+                        report();
+                    } else {
+                        System.out.println(Counter.count);
+                    }
+                } // 释放锁
+            });
             es.submit(t);
             Counter.count++;
         }
