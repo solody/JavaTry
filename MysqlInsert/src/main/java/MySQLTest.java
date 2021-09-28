@@ -4,8 +4,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.*;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 class Counter {
     public static final Object lock = new Object();
@@ -26,13 +28,8 @@ public class MySQLTest {
 
         createTable(conn);
 
-        start = Instant.now();
-
-        // 不使用连接池
-        // insertData(conn);
-
-        // 使用连接池
-        insertData(connectionPool());
+        System.out.println(insertData(conn));
+        System.out.println(insertData(connectionPool()));
     }
 
     private static Connection jdbcConnection() throws SQLException {
@@ -54,7 +51,7 @@ public class MySQLTest {
     private static void createTable(Connection conn) throws SQLException {
         final Statement stmt = conn.createStatement();
         try {
-            boolean created = stmt.execute("""
+            stmt.execute("""
                     CREATE TABLE students (
                       id BIGINT AUTO_INCREMENT NOT NULL,
                       name VARCHAR(50) NOT NULL,
@@ -69,34 +66,15 @@ public class MySQLTest {
         }
     }
 
-    private static void insertData(Connection conn) throws SQLException {
-        final Statement stmt = conn.createStatement();
-        // 创建一个固定大小的线程池:
-        ExecutorService es = Executors.newFixedThreadPool(1000);
-        for (long i = 0; i < 1000L; i++){
-            Thread t = new Thread(() -> {
-                for (long ii = 0; ii < 10L; ii++){
-                    try {
-                        final String insert = "INSERT INTO students (name, gender, grade, score) VALUES ('小明', 1, 1, 88);";
-                        stmt.execute(insert);
-                    } catch (Exception exception) {
-                        System.out.println(exception.getMessage());
-                    }
-                }
-                synchronized(Counter.lock) { // 获取锁
-                    Counter.count--;
-                    if (Counter.count == 0) {
-                        report();
-                    } else {
-                        System.out.println(Counter.count);
-                    }
-                } // 释放锁
-            });
-            es.submit(t);
-            Counter.count++;
+    private static Long insertData(Connection conn) throws SQLException {
+        start = Instant.now();
+        Queue<String> sql = new LinkedList<>();
+        for (long i = 0; i < 1000; i++) {
+            sql.add("INSERT INTO students (name, gender, grade, score) VALUES ('小明', 1, 1, 88);");
         }
-        // 关闭线程池:
-        es.shutdown();
+        Long result = ForkJoinPool.commonPool().invoke(new InsertTask(conn, sql));
+        report();
+        return result;
     }
 
     private static void report() {
@@ -113,8 +91,37 @@ public class MySQLTest {
                 long grade = rs.getLong(2);
                 String name = rs.getString(3);
                 int gender = rs.getInt(4);
-                System.out.println(id);
+                System.out.println(id + "：" + grade + name + gender);
             }
+        }
+    }
+}
+
+class InsertTask extends RecursiveTask<Long> {
+
+    private final Connection conn;
+    private final Queue<String> sql;
+
+    InsertTask(Connection conn, Queue<String> sql) {
+        this.conn = conn;
+        this.sql = sql;
+    }
+
+    @Override
+    protected Long compute() {
+        try {
+            String s = this.sql.poll();
+            Long count = 1L;
+            if (this.sql.size() > 0) {
+                InsertTask task = new InsertTask(this.conn, this.sql);
+                invokeAll(task);
+                count += task.join();;
+            }
+            this.conn.createStatement().execute(s);
+            return count;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0L;
         }
     }
 }
