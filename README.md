@@ -12,4 +12,4 @@
 - [构建工具](Building/README.md)
 
   学习使用 Maven 和 Gradle 构建 JAVA 项目，
-  学习使用 Maven 进行依赖管理。
+  进行依赖管理。

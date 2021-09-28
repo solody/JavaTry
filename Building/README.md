@@ -85,3 +85,8 @@ gradle init
 
 在 `app/build/distributions` 目录下会生成压缩包。
 解压后，直接运行 `bin/app` 脚本，即可运行应用。
+
+### Spring 项目
+
+如果想创建 Spring 项目，应该使用 [Spring initializr](https://start.spring.io/)
+创建工程模板，它提供了 Gradle 作为默认的构建工具。
