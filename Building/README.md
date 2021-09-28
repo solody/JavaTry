@@ -21,6 +21,11 @@
 [Introduction to the POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)
 ### 项目工程模板
 [Maven Archetype Plugin](https://maven.apache.org/archetype/maven-archetype-plugin/index.html)
+
+下面的命令，使用 `maven-archetype-quickstart` 这个 Archetype 创建一个模板工程：
+```bash
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+```
 ### 构建过程
 [Introduction to the Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 
@@ -53,3 +58,30 @@ Gradle 构建 JAVA 应用，并不是要取代 Maven，
 轻便得来同时增加了灵活性。
 
 从这里 [开始学习使用 Gradle](https://docs.gradle.org/current/userguide/getting_started.html) 。
+
+使用 Gradle 创建一个 Java 工程：
+```bash
+mkdir my-gradle-project
+cd my-gradle-project
+gradle init
+# Gradle v7.0.2 下，依次按提示选择：Application Java no Groovy JUnit4
+# 其他版本类似
+```
+
+上面创建的工程中，会发现有一个 gradlew 的脚本，
+它允许您在工程内使用不同于本机全局安装的 Gradle 版本，
+只需要在 `gradle/wrapper/gradle-wrapper.properties`
+文件中指定你想使用的版本，它默认指定了和创建工程时的 Gradle 相同的版本。
+
+运行项目：
+```bash
+./gradlew run
+```
+
+构建项目：
+```bash
+./gradlew build
+```
+
+在 `app/build/distributions` 目录下会生成压缩包。
+解压后，直接运行 `bin/app` 脚本，即可运行应用。
