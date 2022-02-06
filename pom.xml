@@ -15,8 +15,6 @@
             
     <module>SeleniumDemo</module>
             
-    <module>ServletJSP</module>
-            
     <module>SpringDemo</module>
             
     <module>SpringSecurityFormLogin</module>
