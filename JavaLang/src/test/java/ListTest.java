@@ -8,7 +8,7 @@ public class ListTest extends TestCase {
 
     @Test
     public void testList() {
-        ArrayList<String> strings = new ArrayList<String>();
+        ArrayList<String> strings = new ArrayList<>();
 
         strings.add("apple");
         strings.add("banana");
