@@ -3,3 +3,5 @@ data/
 target
 *.iml
 .DS_Store
+.gradle/
+build
