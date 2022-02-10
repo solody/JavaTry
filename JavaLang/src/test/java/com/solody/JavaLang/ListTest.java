@@ -1,3 +1,5 @@
+package com.solody.JavaLang;
+
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
