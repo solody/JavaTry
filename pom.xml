@@ -14,10 +14,6 @@
     <module>MySQLInsert</module>
             
     <module>SeleniumDemo</module>
-            
-    <module>SpringDemo</module>
-            
-    <module>SpringSecurityFormLogin</module>
           
     <module>json-try</module>
       
