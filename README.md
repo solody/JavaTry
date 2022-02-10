@@ -13,6 +13,6 @@
 
   学习使用 Maven 和 Gradle 构建 JAVA 项目，
   进行依赖管理。
-- [连接数据库](MysqlInsert/README.md)
+- [连接数据库](TryMySQL/README.md)
 
   学习使用 JDBC 组件操作数据库。
