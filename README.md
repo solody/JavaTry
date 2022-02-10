@@ -9,7 +9,7 @@
   在没有任何构建工具和框架的情况下，
   学习使用原始 JDK 进行 Web 应用代码编写、编译、打包，
   并运行到 Tomcat 容器。
-- [构建工具](Building/README.md)
+- [构建工具](TryBuild/README.md)
 
   学习使用 Maven 和 Gradle 构建 JAVA 项目，
   进行依赖管理。
