@@ -3,4 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="service1" class="TrySpringFramework.Service.Service1">
+    </bean>
+    <bean id="service2" class="TrySpringFramework.Service.Service2">
+        <property name="service1" ref="service1"/>
+    </bean>
 </beans>
