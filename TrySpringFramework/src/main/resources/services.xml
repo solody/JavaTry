@@ -8,4 +8,5 @@
     <bean id="service2" class="TrySpringFramework.Service.Service2">
         <property name="service1" ref="service1"/>
     </bean>
+    <alias name="service1" alias="s"/>
 </beans>
