@@ -27,3 +27,11 @@
 - [Web 自动化](TrySelenium/README.md)
 
   学习使用 selenium 来模拟浏览器操作。
+
+- [Spring 命令行的使用](TrySpringBootCLI/README.md)
+
+  学习使用 Spring 命令行来直接运行 Groovy 写的 Spring Web 应用。
+
+- [Spring Framework 入门](TrySpringFramework/README.md)
+
+  学习 Spring 的基础设施。
