@@ -32,7 +32,6 @@ public class App {
         System.out.println(insertData(conn));
     }
 
-
     private static Connection jdbcConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
     }
