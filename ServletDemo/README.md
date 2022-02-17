@@ -50,7 +50,7 @@ Tomcat 实际上具有基本的 Web 服务器功能，像 Nginx 和 Apache 一�
 可以直接在站点目录中放 `html\CSS\JS\图像` 等静态 Web 资源文件，
 客户端即可直接访问它们。
 
-我们创建一个 `./indexhtml` 文件：
+我们创建一个 `./index.html` 文件：
 
 ```html
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ hello!
 </html>
 ```
 
-再次访问 `http://localhost:8080`，看到返回了 `./indexhtml` 文件的内容。
+再次访问 `http://localhost:8080`，看到返回了 `./index.html` 文件的内容。
 
 ## Tomcat 运行 Servlet 程序
 
