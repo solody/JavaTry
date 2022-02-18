@@ -31,10 +31,43 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
 ```java
 ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 ```
+## 资源访问
 
+通常 Java 使用标准库中的 `java.net.URL` 类来处理资源访问，它本身可以处理多种前缀的 url 的读取任务，
+比如 `http` `https` `file` `ftp` 等，而且同时还能对其进行扩展，以支持更多前缀。
+
+但是 `java.net.URL` 对资源类型的支持还是不足够全面，比如不能读取 `Class Path` 资源，
+而且它的扩展方法也比较麻烦，而且它也缺少一些功能，比如检查 url 指向的资源是否存在。
+
+所以 Spring 提供了一个资源抽象层来解决这个问题。
+
+可以调用 `ApplicationContext` 对象的 `getResource()` 方法来使用 Spring 的资源抽象层进行资源访问：
+
+```java
+Resource template = ctx.getResource("classpath:some/resource/path/myTemplate.txt");
+```
+```java
+Resource template = ctx.getResource("file:///some/resource/path/myTemplate.txt");
+```
+```java
+Resource template = ctx.getResource("https://myhost.com/resource/path/myTemplate.txt");
+```
+
+读取文件内容：
+```java
+Resource resource = context.getResource("https://www.baidu.com/index.php");
+Scanner sanner = new Scanner(resource.getInputStream());
+while (sanner.hasNextLine()) {
+    System.out.println(sanner.nextLine());
+}
+```
+
+`getResources()` 方法可以使用占位符来一次读取多个符合条件的资源：
+```java
+Resource templates = ctx.getResources("https://abc.com/*/myTemplate.txt");
+```
 
 ## 数据绑定、类型转换、验证
-## 资源访问
 ## DAO 统一数据访问接口
 ## Spring Expression Language (SpEL) 表达式语言
 ## 视图技术
