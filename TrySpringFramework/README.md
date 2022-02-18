@@ -20,6 +20,19 @@
 
 这个应用上下文对象，其实就是 `IoC 容器`，它容纳了一堆可供随时调用的对象。
 
+创建应用上下文对象可以
+[使用 XML 配置](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-instantiation )，
+也可以 
+[使用代码配置](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java )：
+```java
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
+```
+或者
+```java
+ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+```
+
+
 ## 数据绑定、类型转换、验证
 ## 资源访问
 ## DAO 统一数据访问接口
