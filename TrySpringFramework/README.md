@@ -25,11 +25,14 @@
 也可以 
 [使用代码配置](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java )：
 ```java
-ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
-```
-或者
-```java
-ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+class MyApp {
+    public static void main(String[] args) {
+        // 使用 XML 配置
+        ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
+        // 使用 Java 类配置
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+    }
+}
 ```
 ## 资源访问
 
@@ -44,28 +47,34 @@ ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.cl
 可以调用 `ApplicationContext` 对象的 `getResource()` 方法来使用 Spring 的资源抽象层进行资源访问：
 
 ```java
-Resource template = ctx.getResource("classpath:some/resource/path/myTemplate.txt");
-```
-```java
-Resource template = ctx.getResource("file:///some/resource/path/myTemplate.txt");
-```
-```java
-Resource template = ctx.getResource("https://myhost.com/resource/path/myTemplate.txt");
-```
+class MyApp {
+    public static void main(String[] args) {
+        Resource template = ctx.getResource("classpath:some/resource/path/myTemplate.txt");
+        Resource template = ctx.getResource("file:///some/resource/path/myTemplate.txt");
+        Resource template = ctx.getResource("https://myhost.com/resource/path/myTemplate.txt");
 
-读取文件内容：
-```java
-Resource resource = context.getResource("https://www.baidu.com/index.php");
-Scanner sanner = new Scanner(resource.getInputStream());
-while (sanner.hasNextLine()) {
-    System.out.println(sanner.nextLine());
+        // 读取文件内容
+        Resource resource = context.getResource("https://www.baidu.com/index.php");
+        Scanner sanner = new Scanner(resource.getInputStream());
+        while (sanner.hasNextLine()) {
+            System.out.println(sanner.nextLine());
+        }
+    }
 }
 ```
 
-`getResources()` 方法可以使用占位符来一次读取多个符合条件的资源：
+`getResources()` 方法可以使用 `通配符(*)` 来一次读取多个符合条件的资源：
 ```java
-Resource templates = ctx.getResources("https://abc.com/*/myTemplate.txt");
+class MyApp {
+    public static void main(String[] args) {
+        Resource[] templates = ctx.getResources("https://abc.com/*/myTemplate.txt");
+    }
+}
 ```
+
+### 把资源作为依赖注入
+
+todo: 需要理解数据绑定作为前提
 
 ## 数据绑定、类型转换、验证
 ## DAO 统一数据访问接口
