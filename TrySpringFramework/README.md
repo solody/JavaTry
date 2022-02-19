@@ -77,6 +77,25 @@ class MyApp {
 todo: 需要理解数据绑定作为前提
 
 ## 数据绑定、类型转换、验证
+
+Validator
+
+DataBinder
+
+BeanWrapper
+
+```java
+public class DataBindingApp {
+    public static void main(String[] args) {
+        BeanWrapper person  = new BeanWrapperImpl(new Person());
+        person.setPropertyValue("name", "Kent");
+        System.out.println(person.getPropertyValue("name"));
+    }
+}
+```
+
+PropertyEditor
+
 ## DAO 统一数据访问接口
 ## Spring Expression Language (SpEL) 表达式语言
 ## 视图技术
