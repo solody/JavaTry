@@ -72,9 +72,67 @@ class MyApp {
 }
 ```
 
-### 把资源作为依赖注入
+### 把资源获取服务注入到对象
 
-todo: 需要理解数据绑定作为前提
+- 让目标对象的类实现 `ResourceLoaderAware` 接口。
+- 把类通过 `ApplicationContext` 容器实例化，容器会认出`ResourceLoaderAware` 接口，并把自己作为依赖注入到其中。
+
+```java
+public interface ResourceLoaderAware {
+
+    void setResourceLoader(ResourceLoader resourceLoader);
+}
+```
+
+### 把资源直接作为依赖注入
+
+如果资源地址是静态的，我们还可以把资源直接作为依赖注入到所需要的对象内部。
+
+假设我们有这样的一个类：
+```java
+package example;
+
+public class MyBean {
+
+    private Resource template;
+
+    public setTemplate(Resource template) {
+        this.template = template;
+    }
+}
+```
+
+那么我们可以在 `ApplicationContext` 的配置中这样写：
+```xml
+<bean id="myBean" class="example.MyBean">
+    <property name="template" value="some/resource/path/myTemplate.txt"/>
+</bean>
+```
+获者使用 url 前缀：
+```xml
+<property name="template" value="classpath:some/resource/path/myTemplate.txt"/>
+```
+```xml
+<property name="template" value="file:///some/resource/path/myTemplate.txt"/>
+```
+
+如果是使用 Java 注解配置，可以使用 `@Value` 注解从应用配置项读入 url：
+```java
+@Component
+public class MyBean {
+
+    private final Resource template;
+
+    public MyBean(@Value("${template.path}") Resource template) {
+        this.template = template;
+    }
+}
+```
+资源 url 写在应用的 `.properties` 文件：
+```yaml
+template:
+  path: file:///some/resource/path/myTemplate.txt
+```
 
 ## 数据绑定、类型转换、验证
 
