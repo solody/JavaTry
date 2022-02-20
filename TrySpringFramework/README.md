@@ -169,7 +169,7 @@ Spring 中两个使用 `PropertyEditor` 的主要地方是：
 
 Spring 自带大量 PropertyEditor，它们全都在 `org.springframework.beans.propertyeditors` 包下，
 大部分会被 `BeanWrapperImpl` 默认自动加载，当然开发者也可以编写并注册自定义的 PropertyEditor，
-来[覆盖这些默认的行为](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-beans-conversion-customeditor-registration)。
+来[覆盖这些默认的行为](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-beans-conversion-customeditor-registration )。
 
 ### Spring 类型转换
 
