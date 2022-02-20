@@ -136,11 +136,17 @@ template:
 
 ## 数据绑定、类型转换、验证
 
-Validator
+提到数据绑定，有前端开发经验的朋友会马上联想到数据与UI的绑定，
+不是这个事啊，不要想多了哈。
+Spring 的数据绑定是泛指字符串值与对象实例之间的映射。
 
-DataBinder
+### Validator
 
-BeanWrapper
+###  DataBinder
+
+### BeanWrapper
+
+BeanWrapper 用来包装一个 Java Bean 对象，用于代理对象属性的读写操作。
 
 ```java
 public class DataBindingApp {
@@ -152,7 +158,114 @@ public class DataBindingApp {
 }
 ```
 
-PropertyEditor
+### PropertyEditor
+
+当使用数据绑定时，字符串值与对象之前的转换过程是由 `PropertyEditor` 来执行的，
+因此这个过程又称为 `Editing`。
+
+Spring 中两个使用 `PropertyEditor` 的主要地方是：
+- 把 XML 容器配置文件中的数据转换 `Bean`。比如把XML配置中的类名转换为一个对象实例，把XML中配置的属性文本值设置为 `Bean` 的属性。
+- 把 http 请求中的请求参数解析为 MVC framework 的控制器对象。
+
+Spring 自带大量 PropertyEditor，它们全都在 `org.springframework.beans.propertyeditors` 包下，
+大部分会被 `BeanWrapperImpl` 默认自动加载，当然开发者也可以编写并注册自定义的 PropertyEditor，
+来[覆盖这些默认的行为](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-beans-conversion-customeditor-registration)。
+
+### Spring 类型转换
+
+Spring 3 引入了一个类型转换系统，放在 `core.convert` 包下，
+这个系统可以把外部文本转换为所需要的特定类型对象。
+通过 Spring 容器，这个系统还可以用来代替 PropertyEditor 的工作，
+但更多的作用是，把它用到任何你的应用中需要进行类型转换的地方。
+
+这个系统服务的 SPI（Service Provider Interface）：
+```java
+package org.springframework.core.convert.converter;
+
+public interface Converter<S, T> {
+
+    T convert(S source);
+}
+```
+
+任何实现这个接口的类都是一个转换器：
+```java
+package org.springframework.core.convert.support;
+
+final class StringToInteger implements Converter<String, Integer> {
+
+    public Integer convert(String source) {
+        return Integer.valueOf(source);
+    }
+}
+```
+
+服务调用 API：
+```java
+package org.springframework.core.convert;
+
+public interface ConversionService {
+
+    boolean canConvert(Class<?> sourceType, Class<?> targetType);
+
+    <T> T convert(Object source, Class<T> targetType);
+
+    boolean canConvert(TypeDescriptor sourceType, TypeDescriptor targetType);
+
+    Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
+}
+```
+
+用 XML 方式配置一个类型转换服务：
+```xml
+<bean id="conversionService"
+    class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+```
+也可以注册额外的转换器：
+```xml
+<bean id="conversionService"
+        class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <property name="converters">
+        <set>
+            <bean class="example.MyCustomConverter"/>
+        </set>
+    </property>
+</bean>
+```
+
+用编程的方式使用一个类型转换服务，先注入服务：
+```java
+@Service
+public class MyService {
+
+    public MyService(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+
+    public void doIt() {
+        this.conversionService.convert(...);
+    }
+}
+```
+
+另外 [对象字段 `Formatter` 也有着类似的 API](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#format )。
+
+### Java Bean 验证
+
+```java
+Foo target = new Foo();
+DataBinder binder = new DataBinder(target);
+binder.setValidator(new FooValidator());
+
+// bind to the target object
+binder.bind(propertyValues);
+
+// validate the target object
+binder.validate();
+
+// get BindingResult that includes any validation errors
+BindingResult results = binder.getBindingResult();
+```
 
 ## DAO 统一数据访问接口
 ## Spring Expression Language (SpEL) 表达式语言
