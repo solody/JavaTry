@@ -1,5 +1,7 @@
 package TrySpringFramework;
 
+import TrySpringFramework.Bean.ResourceInjection;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ResourceAccessApp {
+
     public static void main(String[] args) throws IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
         Resource resource = context.getResource("https://www.baidu.com/index.php");
