@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework/spring-framework-bom
+    implementation 'org.springframework:spring-context:5.3.16'
+    // https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-bom
+    implementation 'org.apache.dubbo:dubbo:3.0.5'
+    // https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-dependencies-zookeeper
+    implementation 'org.apache.dubbo:dubbo-dependencies-zookeeper:3.0.5'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
