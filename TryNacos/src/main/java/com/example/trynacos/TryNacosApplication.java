@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@NacosConfigurationProperties(dataId = "my_data", type = ConfigType.YAML, autoRefreshed = true)
 public class TryNacosApplication {
 
     public static void main(String[] args) {
