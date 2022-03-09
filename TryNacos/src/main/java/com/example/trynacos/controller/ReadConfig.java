@@ -22,6 +22,6 @@ public class ReadConfig {
     @RequestMapping("/")
     public String read() throws NacosException {
         String content = configService.getConfig("my", "DEFAULT_GROUP", 2000);
-        return hello;
+        return hello + content;
     }
 }

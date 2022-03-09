@@ -19,6 +19,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.alibaba.boot/nacos-config-spring-boot-starter
     implementation 'com.alibaba.boot:nacos-config-spring-boot-starter:0.2.10'
 
+    // https://mvnrepository.com/artifact/com.alibaba.boot/nacos-discovery-spring-boot-starter
+    implementation 'com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.10'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
