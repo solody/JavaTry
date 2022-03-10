@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: nacos-cloud
+  cloud:
+    nacos:
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 127.0.0.1:8848
+  config:
+    import:
+      - optional:nacos:nacos.yml?group=DEFAULT_GROUP&refreshEnabled=true

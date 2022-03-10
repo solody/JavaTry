@@ -5,12 +5,13 @@ import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.alibaba.nacos.api.exception.NacosException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RefreshScope
+@ConfigurationProperties(prefix = "configdata.user")
 public class ReadConfigController {
 
     @Value("${hello: false}")
