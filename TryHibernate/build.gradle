@@ -16,11 +16,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.hibernate:hibernate-core:5.5.9.Final'
+    implementation 'org.hibernate:hibernate-core:5.6.5.Final'
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation 'mysql:mysql-connector-java:8.0.28'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 processResources {
