@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  hadoop-standalone:
+    build: standalone
+    ports:
+      - "9864:9864"
+      - "9866:9866"
+      - "9867:9867"
+      - "9868:9868"
+      - "9870:9870"
+    # restart: always
+    working_dir: /hadoop
+    entrypoint:
+      - ./startup.sh
