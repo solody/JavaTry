@@ -5,28 +5,20 @@ package TryJson;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test void appHasAGreeting() throws IOException {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-        JSONObject jo = new JSONObject("""
-                {
-                    "a": "123",
-                    "b": "456",
-                    "c": {"a": "1", "b": "2"},
-                    "d": [
-                        {"a": "1", "b": "2"},
-                        {"a": "1", "b": "2"},
-                        {"a": "1", "b": "2"}
-                    ],
-                    "e": {},
-                    "f": [],
-                    "g": "01ww",
-                    "h": true
-                }
-                """);
+        // 默认使用UTF-8编码读取:
+        byte[] content = Files.readAllBytes(Paths.get("json-content.json"));
+        JSONObject jo = new JSONObject(new String(content));
         assertEquals("123", jo.get("a"));
         assertEquals("org.json.JSONObject", jo.get("c").getClass().getName());
         assertEquals("org.json.JSONArray", jo.get("d").getClass().getName());
