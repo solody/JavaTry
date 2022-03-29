@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  jdk:
+    image: openjdk:8-jdk-slim
+    volumes:
+      - "./cluster/keep_running.sh:/keep_running.sh"
+    entrypoint:
+      - /keep_running.sh
+    environment:
+      - TEST=123
+
+  name-node:
+    build: cluster
+    ports:
+      - "9000:9000"
+      - "50070:50070"
+    volumes:
+      - "./slaves:/hadoop/etc/hadoop/slaves"
+    entrypoint:
+      - /hadoop/start_namenode.sh
+
+  data-node1:
+    build: cluster
+    volumes:
+      - "./slaves:/hadoop/etc/hadoop/slaves"
+    entrypoint:
+      - /hadoop/start_datanode.sh
+
+  data-node2:
+    build: cluster
+    volumes:
+      - "./slaves:/hadoop/etc/hadoop/slaves"
+    entrypoint:
+      - /hadoop/start_datanode.sh
