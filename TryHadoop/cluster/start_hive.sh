@@ -10,7 +10,9 @@ su - hive -c "$HADOOP_HOME/bin/hadoop fs -mkdir -p /user/hive/warehouse"
 su - hive -c "$HADOOP_HOME/bin/hadoop fs -chmod g+w /tmp"
 su - hive -c "$HADOOP_HOME/bin/hadoop fs -chmod g+w /user/hive/warehouse"
 
-metastore_database="/home/hive/metastore_db"
+chown hive:hadoop /home/hive/meta && chmod 0755 /home/hive/meta
+
+metastore_database="/home/hive/meta/metastore_db"
 if [ -d "$metastore_database" ]
 then
  echo "$metastore_database was created before."

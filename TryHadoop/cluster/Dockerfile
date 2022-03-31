@@ -27,6 +27,7 @@ COPY hive-site.xml /hive/conf/hive-site.xml
 
 # Add helper script to init the needed environment variables for hadoop.
 ADD hadoop-global-env.sh /etc/profile.d/hadoop-global-env.sh
+ADD hadoop-env.sh /hadoop/etc/hadoop/hadoop-env.sh
 # Add helper script to start hadoop namenode and datanodes.
 ADD start_namenode.sh /hadoop/start_namenode.sh
 ADD start_datanode.sh /hadoop/start_datanode.sh
@@ -59,9 +60,14 @@ RUN /hadoop/generate_ssh_key.sh
 USER root
 RUN /hadoop/generate_ssh_key.sh
 
+
 # Defind necessary environment variables.
+ENV JAVA_HOME=/usr/local/openjdk-8
 ENV HADOOP_PREFIX=/hadoop
 ENV HADOOP_YARN_HOME=/hadoop
 ENV HADOOP_CONF_DIR=/hadoop/etc/hadoop
 ENV HADOOP_HOME=/hadoop
 ENV HIVE_HOME=/hive
+
+VOLUME /home/hdfs/dfs
+VOLUME /home/hive/meta
