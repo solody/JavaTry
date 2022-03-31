@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
 
-  jdk:
-    image: openjdk:8-jdk-slim
+  hive:
+    build: cluster
+    ports:
+      - "10000:10000"
     volumes:
-      - "./cluster/keep_running.sh:/keep_running.sh"
+      - "./slaves:/hadoop/etc/hadoop/slaves"
     entrypoint:
-      - /keep_running.sh
-    environment:
-      - TEST=123
+      - /hive/start_hive.sh
 
   name-node:
     build: cluster
@@ -20,6 +20,16 @@ services:
       - "./slaves:/hadoop/etc/hadoop/slaves"
     entrypoint:
       - /hadoop/start_namenode.sh
+
+  resource-manager:
+    build: cluster
+    ports:
+      - "8088:8088"
+      - "19888:19888"
+    volumes:
+      - "./slaves:/hadoop/etc/hadoop/slaves"
+    entrypoint:
+      - /hadoop/start_resource_manager.sh
 
   data-node1:
     build: cluster
