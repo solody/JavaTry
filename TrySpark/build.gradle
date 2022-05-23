@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'scala'
 }
 
 ext {
@@ -15,6 +16,10 @@ repositories {
 }
 
 dependencies {
+    implementation "org.scala-lang:scala-library:${project.ext.scalaVersion}.10"
+    implementation "org.scala-lang:scala-reflect:${project.ext.scalaVersion}.10"
+    implementation "org.scala-lang:scala-compiler:${project.ext.scalaVersion}.10"
+
     implementation "org.apache.spark:spark-mllib_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
     implementation "org.apache.spark:spark-sql_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
     implementation "org.apache.spark:spark-graphx_${project.ext.scalaVersion}:${project.ext.sparkVersion}"
