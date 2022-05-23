@@ -1,25 +1,21 @@
 package com.example.tryspark;
 
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.SparkConf;
-
-import java.util.Arrays;
-import java.util.List;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 
 public class MySparkTry {
-    public static void main(String[] args) throws InterruptedException {
-        String appName = String.valueOf(MySparkTry.class);
-        String master = "spark://localhost:7077";
-        SparkConf conf = new SparkConf().setAppName(appName).setMaster(master);
+    public static void main(String[] args) {
+
+        String logFile = "/opt/bitnami/spark/README.md"; // Should be some file on your system
+        SparkConf conf = new SparkConf().setAppName("MySpark");
         JavaSparkContext sc = new JavaSparkContext(conf);
+        JavaRDD<String> distFile = sc.textFile(logFile);
 
-        List<Integer> data = Arrays.asList(1, 2, 3, 4, 5);
-        JavaRDD<Integer> distData = sc.parallelize(data);
+        long numAs = distFile.filter(s -> s.contains("a")).count();
+        long numBs = distFile.filter(s -> s.contains("b")).count();
 
-        while (true) {
-            System.out.println("Running!!!");
-            Thread.sleep(1000L);
-        }
+        System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
+        sc.stop();
     }
 }

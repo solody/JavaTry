@@ -5,13 +5,15 @@ services:
   spark:
     image: docker.io/bitnami/spark:3
     volumes:
-      - ./data/latest:/bitnami/spark
+      - ./spark-app:/spark-app
+    working_dir: /spark-app
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
+      - SPARK_MASTER_URL=spark://spark:7077
     ports:
       - '8090:8080'
       - '4050:4040'
@@ -19,6 +21,9 @@ services:
 
   spark-worker1:
     image: docker.io/bitnami/spark:3
+    volumes:
+      - ./spark-app:/spark-app
+    working_dir: /spark-app
     ports:
       - '8091:8081'
     environment:
@@ -33,6 +38,9 @@ services:
 
   spark-worker2:
     image: docker.io/bitnami/spark:3
+    volumes:
+      - ./spark-app:/spark-app
+    working_dir: /spark-app
     ports:
       - '8092:8081'
     environment:
