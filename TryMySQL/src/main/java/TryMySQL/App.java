@@ -31,16 +31,14 @@ public class App {
     private static void createTable(Connection conn) throws SQLException {
         final Statement stmt = conn.createStatement();
         try {
-            stmt.execute("""
-                    CREATE TABLE students (
-                      id BIGINT AUTO_INCREMENT NOT NULL,
-                      name VARCHAR(50) NOT NULL,
-                      gender TINYINT(1) NOT NULL,
-                      grade INT NOT NULL,
-                      score INT NOT NULL,
-                      PRIMARY KEY(id)
-                    ) Engine=MEMORY DEFAULT CHARSET=UTF8;
-                    """);
+            stmt.execute("                    CREATE TABLE students (\n" +
+                    "                      id BIGINT AUTO_INCREMENT NOT NULL,\n" +
+                    "                      name VARCHAR(50) NOT NULL,\n" +
+                    "                      gender TINYINT(1) NOT NULL,\n" +
+                    "                      grade INT NOT NULL,\n" +
+                    "                      score INT NOT NULL,\n" +
+                    "                      PRIMARY KEY(id)\n" +
+                    "                    ) Engine=MEMORY DEFAULT CHARSET=UTF8;");
         } catch (Exception exception){
             System.out.println("Table had been created, don't create again.");
         }
@@ -49,17 +47,15 @@ public class App {
     private static void dropTable(Connection conn) throws SQLException {
         final Statement stmt = conn.createStatement();
         try {
-            stmt.execute("""
-                    DROP TABLE students;
-                    """);
+            stmt.execute("DROP TABLE students;");
         } catch (Exception exception){
             System.out.println("Table had been dropped, don't drop again.");
         }
     }
 
-    private static Long insertData(Connection conn) throws SQLException {
+    private static long insertData(Connection conn) throws SQLException {
         start = Instant.now();
-        Long rows = 0L;
+        long rows = 0L;
         for (long i = 0; i < 1000; i++) {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO students (name, gender, grade, score) VALUES (?, ?, ?, ?);");
             ps.setObject(1, "小明"); // 注意：索引从1开始
@@ -72,9 +68,9 @@ public class App {
         return rows;
     }
 
-    private static Long insertDataBatch(Connection conn) throws SQLException {
+    private static long insertDataBatch(Connection conn) throws SQLException {
         start = Instant.now();
-        Long rows = 0L;
+        long rows = 0L;
         PreparedStatement ps = conn.prepareStatement("INSERT INTO students (name, gender, grade, score) VALUES (?, ?, ?, ?);");
         for (long i = 0; i < 1000; i++) {
             ps.setObject(1, "小明"); // 注意：索引从1开始
@@ -104,14 +100,11 @@ public class App {
             ps.setObject(2, 1);
             ps.setObject(3, 1);
             ps.setObject(4, 88);
-            executor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ps.executeUpdate();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+            executor.submit(() -> {
+                try {
+                    ps.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             });
             rows++;
@@ -120,9 +113,9 @@ public class App {
         return rows;
     }
 
-    public static final Long fetchRows(Connection conn) throws SQLException{
+    public static long fetchRows(Connection conn) throws SQLException{
         start = Instant.now();
-        Long rows = 0L;
+        long rows = 0L;
         try (Statement stmt = conn.createStatement()) {
             try (ResultSet rs = stmt.executeQuery("SELECT id, grade, name, gender FROM students")) {
                 while (rs.next()) {
@@ -133,11 +126,19 @@ public class App {
                     String name = rs.getString(3);
                     int gender = rs.getInt(4);
 
+                    String row = id + grade + name + gender;
+
                     // 通过列名取值
                     id = rs.getLong("id");
                     grade = rs.getLong("grade");
                     name = rs.getString("name");
                     gender = rs.getInt("gender");
+
+                    row += id + grade + name + gender;
+
+
+                    System.out.println(row);
+
                     rows++;
                 }
             }
