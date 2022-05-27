@@ -21,20 +21,21 @@ public class MyBatisTest {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        String init_script = "com/example/trymybatis/init-db.sql";
-        Reader init_script_stream = Resources.getResourceAsReader(init_script);
-
         try (SqlSession session = sqlSessionFactory.openSession()) {
 
+            String init_script = "com/example/trymybatis/init-db.sql";
+            Reader init_script_stream = Resources.getResourceAsReader(init_script);
             ScriptRunner scriptRunner = new ScriptRunner(session.getConnection());
             scriptRunner.runScript(init_script_stream);
 
             People people = new People("kent", 100);
-
             session.insert("com.example.trymybatis.insertPeople", people);
 
-            People people2 = (People) session.selectOne("com.example.trymybatis.selectPeople", 1);
+            People people2 = session.selectOne("com.example.trymybatis.selectPeople", people.getId());
             Assertions.assertInstanceOf(People.class, people2);
+            Assertions.assertEquals(people.getId(), people2.getId());
+            Assertions.assertEquals(people.getName(), people2.getName());
+            Assertions.assertEquals(people.getAge(), people2.getAge());
 
             session.update("com.example.trymybatis.dropPeoples");
         }
