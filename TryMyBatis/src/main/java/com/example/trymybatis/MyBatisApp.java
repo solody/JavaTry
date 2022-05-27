@@ -10,14 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MyBatisApp {
-    public static void main(String[] args) throws IOException {
-        String resource = "com/example/trymybatis/mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    public static void main(String[] args){
 
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            People people = (People) session.selectOne("com.example.trymybatis.mappers.PeopleMapper.selectPeople", 1);
-            System.out.println(people.getName());
-        }
     }
 }

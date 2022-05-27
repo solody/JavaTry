@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.trymybatis">
     <select id="selectPeople" resultType="com.example.trymybatis.entity.People">
-        select people_id, age, name from Peoples where people_id = #{id}
+        select people_id, age, name from peoples where people_id = #{id}
     </select>
+    <insert id="insertPeople" parameterType="com.example.trymybatis.entity.People">
+        insert into peoples(people_id, age, name) values (#{id}, #{age}, #{name});
+    </insert>
+    <update id="dropPeoples">
+        drop table peoples;
+    </update>
 </mapper>
