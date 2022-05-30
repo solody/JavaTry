@@ -10,7 +10,10 @@ import java.net.URL;
 public class Ta2 {
     public static void main(String[] args) {
 
-        for (long i = 0; i < 1000L; i++){
+        System.getProperties().put( "proxySet", "true" );
+        System.getProperties().put( "proxyHost", "127.0.0.1");
+        System.getProperties().put( "proxyPort", "11000");
+        for (long i = 0; i < 50L; i++){
             final long index = i;
             Thread t = new Thread() {
                 public void run() {
@@ -20,12 +23,22 @@ public class Ta2 {
                     //chromeOptions.addArguments("--proxy-server=http://125.122.144.141:9999");
                     WebDriver driver = null;
                     try {
-                        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
+                        driver = new RemoteWebDriver(new URL("http://47.243.118.133:4444/wd/hub"), chromeOptions);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    driver.get("https://www.baidu.com");
-                    System.out.println(driver.getTitle()+index);
+                    driver.get("https://debug.j18.hk");
+
+                    // System.out.println(driver.getCurrentUrl());
+                    // System.out.println(driver.getTitle());
+                    // System.out.println(driver.getPageSource());
+
+                    try {
+                        Thread.sleep(10*60*1000L);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     driver.quit();
                 }
             };

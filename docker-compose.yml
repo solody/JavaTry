@@ -50,6 +50,6 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-      - NODE_MAX_INSTANCES=5
-      - NODE_MAX_SESSION=5
+      - NODE_MAX_INSTANCES=500
+      - NODE_MAX_SESSION=500
       - START_XVFB=false
