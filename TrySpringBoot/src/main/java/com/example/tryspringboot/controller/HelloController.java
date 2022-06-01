@@ -1,13 +1,18 @@
 package com.example.tryspringboot.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.tryspringboot.entity.People;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
 
-    @RequestMapping("/")
-    public String say() {
+    @GetMapping("/")
+    public String get() {
         return "hello world";
+    }
+
+    @PostMapping("/")
+    public People post(@RequestBody People people) {
+        return people;
     }
 }
