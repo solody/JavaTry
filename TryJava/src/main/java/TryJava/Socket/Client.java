@@ -19,8 +19,8 @@ public class Client {
     }
 
     private static void handle(InputStream input, OutputStream output) throws IOException {
-        var writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
-        var reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
         Scanner scanner = new Scanner(System.in);
         System.out.println("[server] " + reader.readLine());
         for (;;) {

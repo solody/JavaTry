@@ -23,13 +23,6 @@ public class UrlTest {
         });
 
         URL baidu_url = new URL("https://www.baidu.com/index.php");
-        byte[] bytes = baidu_url.openConnection().getInputStream().readAllBytes();
-        for (byte b: bytes){
-            // Notice that b might is not a ascii char.
-            System.out.print((char) b);
-        }
-
-        baidu_url = new URL("https://www.baidu.com/index.php");
         InputStream inputStream = baidu_url.openConnection().getInputStream();
         // Scanner will handle the charset.
         Scanner scanner = new Scanner(inputStream);
