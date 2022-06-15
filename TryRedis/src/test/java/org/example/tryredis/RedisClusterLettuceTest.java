@@ -1,9 +1,6 @@
 package org.example.tryredis;
 
-import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisCommands;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
@@ -19,6 +16,9 @@ public class RedisClusterLettuceTest {
         RedisURI lettuceUri = RedisURI.create("localhost", 6379);
         // exchangeURI.setPassword("");
 
+        // RedisClusterClient.create() can accept multiple RedisURI of nodes,
+        // but single node also works fine,
+        // Lettuce can automatically detect all node in the cluster.
         RedisClusterClient clusterClient = RedisClusterClient.create(lettuceUri);
 
         GenericObjectPoolConfig exchangePoolConfig = new GenericObjectPoolConfig();
