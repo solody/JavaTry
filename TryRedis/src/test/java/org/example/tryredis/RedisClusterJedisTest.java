@@ -20,7 +20,7 @@ public class RedisClusterJedisTest {
         nodes.add(new HostAndPort("192.168.246.10", 6379));
         nodes.add(new HostAndPort("192.168.246.11", 6379));
         */
-        JedisCluster cluster = new JedisCluster(nodes);
+        JedisCluster cluster = new JedisCluster(nodes, "default", "mobzone2019");
 
         String valueOf123 = "my jedis cluster test";
         String valueOf456 = "my jedis cluster test456";

@@ -14,7 +14,7 @@ public class RedisClusterLettuceTest {
     @Test
     void test() throws Exception {
         RedisURI lettuceUri = RedisURI.create("localhost", 6379);
-        // exchangeURI.setPassword("");
+        lettuceUri.setPassword("mobzone2019");
 
         // RedisClusterClient.create() can accept multiple RedisURI of nodes,
         // but single node also works fine,
