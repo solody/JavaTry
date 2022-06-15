@@ -14,9 +14,12 @@ public class RedisClusterJedisTest {
     void test() {
         Set<HostAndPort> nodes = new HashSet<>();
         nodes.add(new HostAndPort("192.168.246.1", 6379));
-        // It works fine even there is only one node is specified.
-        // nodes.add(new HostAndPort("192.168.246.10", 6379));
-        // nodes.add(new HostAndPort("192.168.246.11", 6379));
+        // It works fine even there is only one node is specified,
+        // nodes of the cluster will be detected automatically.
+        /*
+        nodes.add(new HostAndPort("192.168.246.10", 6379));
+        nodes.add(new HostAndPort("192.168.246.11", 6379));
+        */
         JedisCluster cluster = new JedisCluster(nodes);
 
         String valueOf123 = "my jedis cluster test";
