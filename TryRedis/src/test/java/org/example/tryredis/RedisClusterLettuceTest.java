@@ -46,5 +46,7 @@ public class RedisClusterLettuceTest {
         Assertions.assertEquals(valueOf789, commands.get("789"));
         commands.set("1234567890", valueOf1234567890);
         Assertions.assertEquals(valueOf1234567890, commands.get("1234567890"));
+
+        Assertions.assertEquals(1L, commands.exists("123"));
     }
 }
