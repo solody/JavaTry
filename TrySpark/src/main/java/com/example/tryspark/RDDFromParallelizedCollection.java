@@ -23,7 +23,7 @@ public class RDDFromParallelizedCollection {
             data.add(Long.valueOf(random.nextInt(999)));
         }
         System.out.println(data.size());
-        JavaRDD<Long> distData = sc.parallelize(data);
+        JavaRDD<Long> distData = sc.parallelize(data, 32);
         long total = distData.reduce((a, b) -> a + b);
 
         System.out.println(total);
