@@ -1,10 +1,9 @@
 package com.example.tryspark;
 
-import org.apache.spark.SparkConf;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SparkSession;
 
-public class MySparkTry {
+public class QuickStart {
     public static void main(String[] args) {
 
         String logFile = "./README.md"; // Should be some file on your system
