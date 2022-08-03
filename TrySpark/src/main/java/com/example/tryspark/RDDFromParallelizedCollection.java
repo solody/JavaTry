@@ -22,12 +22,10 @@ public class RDDFromParallelizedCollection {
         while (data.size() < 1000000L) {
             data.add(Long.valueOf(random.nextInt(999)));
         }
-        System.out.println(data.size());
+        System.out.println("Total numbers: " + data.size());
         JavaRDD<Long> distData = sc.parallelize(data, 32);
-        long total = distData.reduce((a, b) -> a + b);
+        long sum = distData.reduce((a, b) -> a + b);
 
-        System.out.println(total);
-
-        Thread.sleep(3600*1000L);
+        System.out.println("Sum of them: " + sum);
     }
 }
