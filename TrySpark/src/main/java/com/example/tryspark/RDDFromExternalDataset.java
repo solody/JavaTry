@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class RDDFromExternalDataset {
 
-    private static String appName = "RDD Try Application";
+    private static String appName = "RDD Try Application RDDFromExternalDataset";
     private static String master = "local[16]";
 
     private static Logger logger = Logger.getGlobal();

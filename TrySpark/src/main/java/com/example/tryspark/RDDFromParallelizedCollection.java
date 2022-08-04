@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class RDDFromParallelizedCollection {
 
-    private static String appName = "RDD Try Application";
+    private static String appName = "RDD Try Application RDDFromParallelizedCollection";
     private static String master = "local[16]";
 
     public static void main(String[] args) throws InterruptedException {
