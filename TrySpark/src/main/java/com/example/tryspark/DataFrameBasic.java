@@ -21,5 +21,6 @@ public class DataFrameBasic {
         Dataset<Row> df = spark.read().json("TrySpark/src/main/resources/people.json");
 
         df.show();
+        df.printSchema();
     }
 }
