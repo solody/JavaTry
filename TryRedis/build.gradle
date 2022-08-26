@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id("com.github.johnrengelman.shadow") version "7.0.0"
+    id 'org.springframework.boot' version '2.7.3'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 }
 application {
     mainClass.set('RedisClusterIOTest')
@@ -16,9 +18,11 @@ repositories {
 
 dependencies {
     implementation 'redis.clients:jedis:4.2.3'
-    implementation 'io.lettuce:lettuce-core:5.3.7.RELEASE'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation 'io.lettuce:lettuce-core:6.2.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
 
 test {
