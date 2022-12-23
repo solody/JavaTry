@@ -1,4 +1,4 @@
-package TryJava.Socket;
+package org.example.TryJava.Socket;
 
 import java.io.*;
 import java.net.ServerSocket;

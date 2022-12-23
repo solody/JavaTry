@@ -1,4 +1,4 @@
-package TryJava;
+package org.example.TryJava;
 
 public class Male extends Human<String>{
     @Override

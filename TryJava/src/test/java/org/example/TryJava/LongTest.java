@@ -1,4 +1,4 @@
-package TryJava;
+package org.example.TryJava;
 
 import org.junit.jupiter.api.Test;
 
