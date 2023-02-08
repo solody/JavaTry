@@ -1,7 +1,8 @@
 #  构建 Java 应用程序
 
 构建，指的是把 java 代码编译、打包成最终应用程序的一系列过程。
-从 `JDKDemo` 和 `ServletDemo` 两文的学习中，
+从 [原生JDK开发](../TryNativeJDK/README.md)
+和 [原生Servlet](../TryNativeServlet/README.md) 两文的学习中，
 我们发现这是一个很麻烦的过程。
 
 为了把构建过程变得容易，大家创建了专门的构建工具：

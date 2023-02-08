@@ -179,6 +179,8 @@ jar --create \
 --file Hello.jar \
 --manifest mainfest.mf \
 Hello.class my/People.class
+# Or in new version
+jar cvfm hello.jar mainfest.mf Hello.class my/People.class
 ```
 该命令会生成一个 `Hello.jar` 文件，
 可以直接运行这个 jar 包：

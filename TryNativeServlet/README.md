@@ -121,6 +121,8 @@ javac -cp /usr/local/tomcat/lib/servlet-api.jar webapps/ROOT/WEB-INF/classes/MyS
 
 > 查看官方文档了解更多关于 Servlet 的知识 https://javaee.github.io/tutorial/servlets.html
 
+> JavaEE 捐给了 Eclipse 后，改名叫 [jakarta](https://jakarta.ee/)，网站也换成了 [https://jakarta.ee](https://jakarta.ee/)。
+
 ## JSP 页面
 
 JSP 是类似 PHP 的一种 Java Web 应用，
