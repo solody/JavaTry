@@ -3,9 +3,11 @@
  */
 package TryJson;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test void appHasAGreeting() throws IOException {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+        App app = new App();
+        assertNotNull(app.getGreeting(), "app should have a greeting");
         // 默认使用UTF-8编码读取:
-        byte[] content = Files.readAllBytes(Paths.get("json-content.json"));
-        JSONObject jo = new JSONObject(new String(content));
+        File file = new File(AppTest.class.getClassLoader().getResource("json-content.json").getPath());
+        JSONObject jo = new JSONObject(FileUtils.readFileToString(file, "UTF-8"));
         assertEquals("123", jo.get("a"));
         assertEquals("org.json.JSONObject", jo.get("c").getClass().getName());
         assertEquals("org.json.JSONArray", jo.get("d").getClass().getName());
