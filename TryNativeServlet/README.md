@@ -142,7 +142,7 @@ JSP 是类似 PHP 的一种 Java Web 应用，
 </html>
 ```
 
-访问 `http://localhost:8080/index.jsp`，Tomcat 会自动编译并运行该文件，
+访问 `http://localhost:8080/index.jsp` ，Tomcat 会自动编译并运行该文件，
 如果修改了 jsp，Tomcat 也会自动重新编译。
 
 ## JavaServer Faces 应用
@@ -159,3 +159,6 @@ JavaServer Faces 简称 JSF，是一种类似 ASP.NET 用户界面组件的技�
 ## war 文件
 
 可以简单地把 web 应用的目录打包成 zip 格式，文件后缀改为 war，放到 tomcat 容器中，它会在运行时被自动解压。
+
+> [Jakarta tutorial](https://eclipse-ee4j.github.io/jakartaee-tutorial)
+> 是 Java Web 开发的官方指南文档，是学习 Java Web 开发的必读文档。

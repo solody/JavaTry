@@ -20,7 +20,7 @@
   学习在 Java 中处理 json。
 
 - [连接数据库](TryMySQL/README.md)
-  学习使用 JDBC 组件操作数据库。
+  学习使用 JDBC 组件操作数据库(MSQL)。
 
 - [Web 自动化](TrySelenium/README.md)
   学习使用 selenium 来模拟浏览器操作。
