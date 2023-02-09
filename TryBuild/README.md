@@ -48,8 +48,7 @@ Gradle 是一个面向多种语言平台应用的构建工具，
 
 看看 [Gradle 都可以构建哪些应用](https://docs.gradle.org/current/samples/index.html) 。
 
-现在的 JAVA 应用，基本上都是使用 Gradle 构建，别问为什么，
-大家都用那肯定是好东西，用便是了。
+现在的 JAVA 应用，基本上都是使用 Gradle 构建，别问为什么。
 
 Gradle 构建 JAVA 应用，并不是完全要取代 Maven，
 它是继续使用 Maven 的中央仓库来做依赖管理，
@@ -91,3 +90,6 @@ gradle init
 
 如果想创建 Spring 项目，应该使用 [Spring initializr](https://start.spring.io/)
 创建工程模板，它提供了 Gradle 作为默认的构建工具。
+
+> 在后面的课程中，我们使用 IDEA 的项目创建向导来创建 gradle 工程，它同样集成了 Spring initializr
+> 服务来创建 Spring 工程。
