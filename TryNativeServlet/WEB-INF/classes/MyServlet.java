@@ -18,7 +18,7 @@ public class MyServlet extends HttpServlet {
             out.println("<title>Servlet MoodServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("hello servlet!！34534534");
+            out.println("Hello, your request is handled by a servlet！ request time is" + System.currentTimeMillis());
             out.println("</body>");
             out.println("</html>");
         }

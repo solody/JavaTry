@@ -5,6 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<%="Hello JSP!"%>
+<%="Hello, This is a JSP file!"%>
 </body>
 </html>
