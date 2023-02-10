@@ -1,4 +1,4 @@
-# JAVA Web 技术入门
+# JAVA 技术笔记
 
 - [安装 JAVA](JdkManagement.md)
   如果手动安装多个版本的 JDK，并使用 update-alternatives 命令来管理它们。
