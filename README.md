@@ -40,3 +40,6 @@
 - [RPC 框架：Dubbo](TryDubbo/README.md)
   Apache Dubbo 是一款微服务框架，为大规模微服务实践提供高性能 RPC 通信、流量治理、可观测性等解决方案，
   它是由阿里巴巴开发的，并开源捐赠给了 Apache 基金会。
+
+- [RPC 框架：OpenFeign](TryOpenFeign/README.md)
+  像调用本地方法一样调用远程 http 服务。
