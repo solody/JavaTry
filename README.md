@@ -22,6 +22,9 @@
 - [连接数据库](TryMySQL/README.md)
   学习使用 JDBC 组件操作数据库(MSQL)。
 
+- [ORM 技术](TryHibernate/README.md)
+  JPA 和 Hibernate。
+
 - [数据加密](TryEncryption/README.md)
   学习各种加密算法在 Java 平台的实现，比如 md5。
 
