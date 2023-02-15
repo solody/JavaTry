@@ -3,6 +3,9 @@
 - [安装 JAVA](JdkManagement.md)
   如果手动安装多个版本的 JDK，并使用 update-alternatives 命令来管理它们。
 
+- [常用 JAVA 语言特性](TryJava/README.md)
+  提供一个地方让尝试和记录一下 Java 语言相关常用特性。
+
 - [原生JDK开发](TryNativeJDK/README.md)
   在没有任何构建工具和框架的情况下，
   学习使用原始 JDK 进行简单的代码编译、打包、运行。
