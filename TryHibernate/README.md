@@ -7,4 +7,4 @@
 - 创建 `hibernate.cfg.xml` 文件：主要是配置JDBC 连接，和 hibernate 的行为选项。
 - 创建实体类：需要映射到数据库表的类。
 - 为实体类提供映射元信息：指明一个类具体如何映射到数据库表。
-- 创建 `SessionFactory` 对象，对实体对象进行数据持久化和检索。
+- 创建 `SessionFactory` 和 `EntityManager` 对象，对实体对象进行数据持久化和检索。

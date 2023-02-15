@@ -35,6 +35,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping resource="com/example/tryhibernate/entity/People.hbm.xml"/>
+        <mapping class="com.example.tryhibernate.entity.Animal"/>
 
     </session-factory>
 
