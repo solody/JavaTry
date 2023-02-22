@@ -1,9 +1,12 @@
 package com.example.tryspringdata.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class JdbcTemplateAccess {
@@ -70,6 +73,16 @@ public class JdbcTemplateAccess {
                     return student_temp;
                 });
         System.out.println(studentList.size());
+
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", "小王");
+        params.put("gender", 2);
+        params.put("grade", 2);
+        params.put("score", 99);
+        int effect = namedParameterJdbcTemplate.update("INSERT INTO students (name, gender, grade, score) VALUES (:name, :gender, :grade, :score)", params);
+        System.out.println(effect);
 
         jdbcTemplate.execute("drop table students;");
     }
