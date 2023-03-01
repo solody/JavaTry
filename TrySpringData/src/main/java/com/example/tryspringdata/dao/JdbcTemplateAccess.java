@@ -1,15 +1,23 @@
 package com.example.tryspringdata.dao;
 
+import com.example.tryspringdata.entity.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("SqlResolve")
 @Repository
 public class JdbcTemplateAccess {
+
+    private static final Logger log = LoggerFactory.getLogger(JdbcTemplateAccess.class);
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,6 +29,7 @@ public class JdbcTemplateAccess {
      * https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-JdbcTemplate
      */
     public void doSomething() {
+        // Initial the table.
         jdbcTemplate.execute("""
             DROP TABLE IF EXISTS `students`;
             """);
@@ -35,6 +44,18 @@ public class JdbcTemplateAccess {
               PRIMARY KEY(id)
             ) Engine=INNODB DEFAULT CHARSET=UTF8;
             """);
+
+        tryJdbcTemplate();
+        tryNamedParameterJdbcTemplate();
+
+        jdbcTemplate.execute("drop table students;");
+    }
+
+    /**
+     * Try default style jdbc template access.
+     */
+    private void tryJdbcTemplate() {
+
         jdbcTemplate.update(
                 "INSERT INTO students (name, gender, grade, score) VALUES (?, ?, ?, ?)",
                 "小明", 1, 1, 88);
@@ -73,38 +94,32 @@ public class JdbcTemplateAccess {
                     return student_temp;
                 });
         System.out.println(studentList.size());
+    }
 
+    /**
+     * Named parameter jdbc template interface.
+     */
+    private void tryNamedParameterJdbcTemplate() {
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-
         Map<String, Object> params = new HashMap<>();
         params.put("name", "小王");
         params.put("gender", 2);
         params.put("grade", 2);
         params.put("score", 99);
-        int effect = namedParameterJdbcTemplate.update("INSERT INTO students (name, gender, grade, score) VALUES (:name, :gender, :grade, :score)", params);
-        System.out.println(effect);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+        int effect = namedParameterJdbcTemplate.update(
+                "INSERT INTO students (name, gender, grade, score) VALUES (:name, :gender, :grade, :score)",
+                sqlParameterSource
+        );
 
-        jdbcTemplate.execute("drop table students;");
+        MapSqlParameterSource queryParams = new MapSqlParameterSource();
+        queryParams.addValue("name", "小王");
+        Integer id = namedParameterJdbcTemplate.queryForObject(
+                "SELECT id FROM students WHERE name=:name",
+                queryParams, Integer.class
+        );
+
+        log.info("The queried id is : " + id);
     }
 
-    class Student {
-        private Long id;
-        private String name;
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 }
