@@ -33,13 +33,19 @@ dependencies {
   implementation("io.vertx:vertx-web")
   implementation("io.vertx:vertx-kafka-client")
   implementation("io.vertx:vertx-redis-client")
+  // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+  implementation("ch.qos.logback:logback-core:1.4.7")
+
+  // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+  implementation("ch.qos.logback:logback-classic:1.4.7")
+
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<ShadowJar> {

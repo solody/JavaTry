@@ -113,7 +113,7 @@ public class JdbcTemplateAccess {
         );
 
         MapSqlParameterSource queryParams = new MapSqlParameterSource();
-        queryParams.addValue("name", "小王");
+        queryParams.addValue("name", "小王2");
         Integer id = namedParameterJdbcTemplate.queryForObject(
                 "SELECT id FROM students WHERE name=:name",
                 queryParams, Integer.class
