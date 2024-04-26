@@ -13,7 +13,7 @@ public class SocketTest {
             public void run() {
                 try {
                     Server.main(new String[]{});
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

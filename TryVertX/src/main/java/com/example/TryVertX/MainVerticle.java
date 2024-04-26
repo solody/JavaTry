@@ -2,6 +2,8 @@ package com.example.TryVertX;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpServerOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,10 +46,11 @@ public class MainVerticle extends AbstractVerticle {
       }
       ar.result().release();
     });*/
-
+    HttpServerOptions options = new HttpServerOptions();
     vertx.createHttpServer().requestHandler(req -> {
       req.response()
         .putHeader("content-type", "text/plain")
+        .putHeader(HttpHeaders.CONNECTION, "keep-alive")
         .end("Hello from Vert.x! " + staticInteger.get());
     }).listen(8888, http -> {
       if (http.succeeded()) {

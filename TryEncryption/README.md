@@ -88,7 +88,6 @@ public class Main {
     }
 }
 ```
-
 SHA-1 SHA-256 只需要把 `MessageDigest.getInstance("MD5")` 中的 MD5 简单替换就可以了。
 
 ### 无损加密，可逆加密
