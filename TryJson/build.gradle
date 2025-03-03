@@ -10,7 +10,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.json:json:20211205'
+    implementation 'org.json:json:20220320'
+    implementation 'commons-io:commons-io:2.11.0'
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

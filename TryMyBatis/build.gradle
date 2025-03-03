@@ -15,8 +15,8 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/org.mybatis/mybatis
     implementation 'org.mybatis:mybatis:3.5.9'
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation 'mysql:mysql-connector-java:8.0.29'
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'

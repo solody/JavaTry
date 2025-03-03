@@ -6,14 +6,20 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class Server {
-    public static void main(String[] args) throws IOException {
-        ServerSocket ss = new ServerSocket(6666); // 监听指定端口
-        System.out.println("server is running...");
-        for (;;) {
-            Socket sock = ss.accept();
-            System.out.println("connected from " + sock.getRemoteSocketAddress());
-            Thread t = new Handler(sock);
-            t.start();
+
+    private final static int PORT = 6666;
+
+    public static void main(String[] args) {
+        try (ServerSocket ss = new ServerSocket(PORT)){
+            System.out.printf("Server is running on port %d %n", PORT);
+            for (;;) {
+                Socket sock = ss.accept();
+                System.out.printf("%nConnection created from %s %n", sock.getRemoteSocketAddress());
+                Thread t = new Handler(sock);
+                t.start();
+            }
+        } catch (Exception exception) {
+            System.out.printf("Server was crashed! %s %n", exception.getMessage());
         }
     }
 }
@@ -27,16 +33,18 @@ class Handler extends Thread {
 
     @Override
     public void run() {
-        try (InputStream input = this.sock.getInputStream()) {
-            try (OutputStream output = this.sock.getOutputStream()) {
-                handle(input, output);
-            }
+        try (InputStream input = this.sock.getInputStream();
+             OutputStream output = this.sock.getOutputStream()) {
+            handle(input, output);
+            System.out.printf("Connection from [%s] was closed. %n", sock.getRemoteSocketAddress());
         } catch (Exception e) {
+            System.out.printf("Communication error: %s, %n", e.getMessage());
             try {
                 this.sock.close();
-            } catch (IOException ioe) {
+                System.out.println("Connection was closed successful.");
+            } catch (Exception ioe) {
+                System.out.printf("Connection close with error: %s, %n", ioe.getMessage());
             }
-            System.out.println("client disconnected.");
         }
     }
 
@@ -47,6 +55,9 @@ class Handler extends Thread {
         writer.flush();
         for (;;) {
             String s = reader.readLine();
+            if (s == null) {
+                throw new RuntimeException("Can not read from remote client!");
+            }
             if (s.equals("bye")) {
                 writer.write("bye\n");
                 writer.flush();

@@ -8,3 +8,5 @@
 - `org.json.JSONArray` 
 
 原始数据类型会直接用 `java.lang.*` 包下的类型来对应。
+
+另外比较流行的是 Gson 库，是由 google 提供的一个 json 处理工具。

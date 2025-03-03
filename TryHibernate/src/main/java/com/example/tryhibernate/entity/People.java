@@ -9,6 +9,11 @@ public class People {
 
     }
 
+    public People(String name, int age) {
+        this.setName(name);
+        this.setAge(age);
+    }
+
     public Long getId() {
         return id;
     }
@@ -30,11 +35,6 @@ public class People {
     }
 
     public void setAge(int age) {
-        this.age = age;
-    }
-
-    public People(String name, int age) {
-        this.name = name;
         this.age = age;
     }
 }
