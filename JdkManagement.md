@@ -62,3 +62,9 @@ update-alternatives 既然是管理软连接的，那么无论是文件还是目
 环境变量查找可执行文件的策略的权重就比较低了，从而被覆盖掉。
 建议手动安装 Oracle 官方版本的 JDK，然后通过上述方法使用
 update-alternatives 管理 JDK 目录链接。
+
+### 使用 Jetbrains IDEA 管理 JDK
+
+Jetbrains IDEA 提供了一个 JDK 管理器，可以在 IDE 中直接添加 JDK 版本。
+如果你不需要在操作系统中直接使用 JDK 命令行工具，可以直接在 IDEA 中添加 JDK 版本。
+Jetbrains IDEA 管理的 JDK 版本会存放在 `~/.jdks/` 目录，实际上你也可以直接在操作系统中使用这些 JDK 。

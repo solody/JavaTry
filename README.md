@@ -1,7 +1,7 @@
 # JAVA 技术笔记
 
 - [安装 JAVA](JdkManagement.md)
-  如果手动安装多个版本的 JDK，并使用 update-alternatives 命令来管理它们。
+  如何手动安装多个版本的 JDK，并使用 update-alternatives 命令来管理它们。
 
 - [常用 JAVA 语言特性](TryJava/README.md)
   提供一个地方让尝试和记录一下 Java 语言相关常用特性。
