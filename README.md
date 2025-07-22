@@ -6,11 +6,11 @@
 - [常用 JAVA 语言特性](TryJava/README.md)
   提供一个地方让尝试和记录一下 Java 语言相关常用特性。
 
-- [原生JDK开发](TryNativeJDK/README.md)
+- [原生 JDK 开发](TryNativeJDK/README.md)
   在没有任何构建工具和框架的情况下，
   学习使用原始 JDK 进行简单的代码编译、打包、运行。
 
-- [原生Servlet](TryNativeServlet/README.md)
+- [原生 Servlet 开发](TryNativeServlet/README.md)
   在没有任何构建工具和框架的情况下，
   学习使用原始 JDK 进行 Web 应用代码编写、编译、打包，
   并运行到 Tomcat 容器。
