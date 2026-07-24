@@ -21,6 +21,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/example/trymybatis/PeopleMapper.xml"/>
+        <mapper resource="com/example/trymybatis/mappers/PeopleMapper.xml"/>
     </mappers>
 </configuration>
