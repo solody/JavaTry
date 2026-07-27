@@ -80,7 +80,7 @@ public class MyBatisTest {
 
             session.commit();
 
-
+            List<People> selectedPeoples = peopleMapper.selectPeoples();
 
             session.update("com.example.trymybatis.mappers.PeopleMapper.dropPeoples");
         }
@@ -92,12 +92,12 @@ public class MyBatisTest {
             People people1 = new People().setAge(20 + i).setName("name" + i);
             peopleList.add(people1);
 
-            Address address1 = new Address().setCity("city" + i);
+            Address address1 = new Address().setCity("city" + i).setStreet("street" + i);
             people1.setAddress(address1);
 
             List<Article> personalArticleList = new ArrayList<>();
             for (int j = 1; j <= 10; j++) {
-                Article article1 = new Article().setTitle("title" + i);
+                Article article1 = new Article().setTitle("title" + i).setContent("content" + i);
                 personalArticleList.add(article1);
                 people1.setArticles(personalArticleList);
             }

@@ -6,4 +6,5 @@ import java.util.HashMap;
 
 public interface PeopleMapper {
     People selectPeople(HashMap<String, Object> params);
+    java.util.List<People> selectPeoples();
 }

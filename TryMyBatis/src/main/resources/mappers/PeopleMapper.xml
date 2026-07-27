@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.trymybatis.mappers.PeopleMapper">
+    <select id="selectPeople"
+            parameterType="hashmap"
+            resultType="People">
+        select people_id as id, age, name from peoples where people_id = #{id}
+    </select>
+    <select id="selectPeoples"
+            resultMap="peopleMapper">
+        select
+            p.people_id as people_id,
+            age,
+            name,
+            ad.address_id as address_address_id,
+            ad.people_id as address_people_id,
+            ad.street as address_street,
+            ad.city as address_city,
+            ar.article_id as article_article_id,
+            ar.people_id as article_people_id,
+            ar.title as article_title,
+            ar.content as article_content
+        from peoples p
+            left join addresses ad on p.people_id = ad.people_id
+            left join articles ar on p.people_id = ar.people_id
+    </select>
+
+    <resultMap id="peopleMapper" type="People">
+        <id property="id" column="people_id"/>
+        <result property="age" column="age"/>
+        <result property="name" column="name"/>
+        <association property="address" javaType="Address" resultMap="addressMapper" columnPrefix="address_"/>
+        <collection property="articles" ofType="Article" resultMap="articleMapper" columnPrefix="article_"/>
+    </resultMap>
+    <resultMap id="addressMapper" type="Address">
+        <id property="id" column="address_id"/>
+        <result property="peopleId" column="people_id"/>
+        <result property="street" column="street"/>
+        <result property="city" column="city"/>
+    </resultMap>
+    <resultMap id="articleMapper" type="Article">
+        <id property="id" column="article_id"/>
+        <result property="peopleId" column="people_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <insert id="insertPeople"
+            parameterType="People"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="people_id">
+        insert into peoples(age, name) values (#{age}, #{name})
+    </insert>
+    <insert id="insertPeopleList"
+            parameterType="People"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="people_id">
+        insert into peoples(age, name) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.age}, #{item.name})
+        </foreach>
+    </insert>
+    <insert id="insertPeopleAddressList"
+            parameterType="Address"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="address_id">
+        insert into addresses(people_id, street, city) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.peopleId}, #{item.street}, #{item.city})
+        </foreach>
+    </insert>
+    <insert id="insertPeopleArticleList"
+            parameterType="Article"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="article_id">
+        insert into articles(people_id, title, content) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.peopleId}, #{item.title}, #{item.content})
+        </foreach>
+    </insert>
+    <update id="dropPeoples">
+        drop table peoples;
+    </update>
+
+</mapper>

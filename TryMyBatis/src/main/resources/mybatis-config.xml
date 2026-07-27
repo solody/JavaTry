@@ -9,6 +9,11 @@
         <property name="username" value="root"/>
         <property name="password" value="123"/>
     </properties>
+    <typeAliases>
+        <typeAlias type="com.example.trymybatis.entity.People" alias="People"/>
+        <typeAlias type="com.example.trymybatis.entity.Address" alias="Address"/>
+        <typeAlias type="com.example.trymybatis.entity.Article" alias="Article"/>
+    </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -21,6 +26,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/example/trymybatis/mappers/PeopleMapper.xml"/>
+        <mapper resource="mappers/PeopleMapper.xml"/>
     </mappers>
 </configuration>
