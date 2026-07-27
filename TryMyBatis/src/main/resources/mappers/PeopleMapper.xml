@@ -15,7 +15,7 @@
             age,
             name,
             ad.address_id as address_address_id,
-            ad.people as address_people,
+            ad.people_id as address_people,
             ad.street as address_street,
             ad.city as address_city,
             ar.article_id as article_article_id,
@@ -23,7 +23,7 @@
             ar.title as article_title,
             ar.content as article_content
         from peoples p
-            left join addresses ad on p.people_id = ad.people
+            left join addresses ad on p.people_id = ad.people_id
             left join articles ar on p.people_id = ar.people_id
     </select>
 
@@ -63,7 +63,7 @@
     <insert id="insertPeopleAddressList"
             parameterType="Address"
             useGeneratedKeys="true" keyProperty="id" keyColumn="address_id">
-        insert into addresses(people, street, city) values
+        insert into addresses(people_id, street, city) values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.people.id}, #{item.street}, #{item.city})
         </foreach>
