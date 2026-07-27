@@ -67,7 +67,7 @@ public class MyBatisTest {
             List<Article> articleList = new ArrayList<>();
             peopleList.forEach(people1 -> {
                 Address address1 = people1.getAddress();
-                address1.setPeopleId(people1.getId());
+                address1.setPeople(people1);
                 addressList.add(address1);
 
                 people1.getArticles().forEach(article1 -> {

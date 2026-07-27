@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Address {
     private Long id;
-    private Long peopleId;
+    private People people;
     private String street;
     private String city;
 }

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS peoples (
 
 CREATE TABLE IF NOT EXISTS addresses (
     address_id bigint auto_increment primary key,
-    people_id bigint null,
+    people bigint null,
     street varchar(255) null,
     city varchar(255) null
 );
