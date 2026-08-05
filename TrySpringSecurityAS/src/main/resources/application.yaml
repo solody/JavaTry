@@ -4,6 +4,10 @@ spring:
       name: user
       password: password
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://localhost:8080
+          jwk-set-uri: http://localhost:8080/oauth2/jwks
       authorizationserver:
         client:
           oidc-client:
@@ -16,9 +20,9 @@ spring:
                 - "authorization_code"
                 - "refresh_token"
               redirect-uris:
-                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+                - "http://localhost:8080/login/oauth2/code/oidc-client"
               post-logout-redirect-uris:
-                - "http://127.0.0.1:8080/"
+                - "http://localhost:8080/"
               scopes:
                 - "openid"
                 - "profile"

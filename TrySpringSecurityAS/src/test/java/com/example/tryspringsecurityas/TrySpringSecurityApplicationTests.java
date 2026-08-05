@@ -1,4 +1,4 @@
-package com.example.tryspringsecurity;
+package com.example.tryspringsecurityas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,6 @@
-package com.example.tryspringsecurity.controller;
+package com.example.tryspringsecurityas.controller;
 
-import com.example.tryspringsecurity.TrySpringSecurityApplication;
+import com.example.tryspringsecurityas.TrySpringSecurityApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 

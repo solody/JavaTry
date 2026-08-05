@@ -1,4 +1,4 @@
-package com.example.tryspringsecurity.controller;
+package com.example.tryspringsecurityas.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
