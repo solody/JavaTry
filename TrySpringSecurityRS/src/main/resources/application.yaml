@@ -1,5 +1,12 @@
 spring:
   application:
     name: TrySpringSecurityRS
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Must match the JWT "iss" claim from TrySpringSecurityAS (http, not https)
+          issuer-uri: http://localhost:8080
+          jwk-set-uri: http://localhost:8080/oauth2/jwks
 server:
   port: 9090

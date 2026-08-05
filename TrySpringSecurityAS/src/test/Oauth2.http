@@ -66,4 +66,9 @@ Authorization: Basic {{clientId}} {{clientSecret}}
 
 grant_type=authorization_code&code={{authorizationCode}}&redirect_uri={{redirectUri}}&code_verifier={{codeVerifier}}&scope=openid
 
+> {%
+    client.global.set("accessToken", response.body.access_token);
+    console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
+%}
+
 ###
