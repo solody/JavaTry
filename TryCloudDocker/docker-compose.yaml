@@ -1,0 +1,17 @@
+services:
+  authorization-server:
+    image: eclipse-temurin:26-jdk
+    ports:
+      - "8080:8080"
+    depends_on:
+      - authorization-server-db
+
+  authorization-server-db:
+    image: mysql:9.7
+#    ports:
+#      - "3306:3306"
+    restart: always
+    environment:
+      TZ: UTC
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: oauth2

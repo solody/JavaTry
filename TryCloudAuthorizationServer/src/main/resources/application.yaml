@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: TryCloudAuthorizationServer
+  sql:
+    init:
+      mode: always
+app:
+  datasource:
+    url: jdbc:mysql://authorization-server-db/oauth2?preserveInstants=true&connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true
+    username: root
+    password: 123
+    pool-size: 30
