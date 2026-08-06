@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TryCloud OAuth2 Login</title>
+</head>
+<body>
+<h1>TryCloud OAuth2 Login</h1>
+
+<div th:if="${user == null}">
+    <p>未登录</p>
+    <p>
+        <a th:href="@{/oauth2/authorization/my-oidc-client}">使用 OAuth2 登录</a>
+    </p>
+</div>
+
+<div th:if="${user != null}">
+    <p>已登录</p>
+    <ul>
+        <li>Subject: <span th:text="${user.subject}">sub</span></li>
+        <li>Email: <span th:text="${user.email}">email</span></li>
+        <li>Issuer: <span th:text="${user.issuer}">issuer</span></li>
+    </ul>
+    <h2>Claims</h2>
+    <ul>
+        <li th:each="claim : ${user.claims}">
+            <span th:text="${claim.key}">key</span>:
+            <span th:text="${claim.value}">value</span>
+        </li>
+    </ul>
+    <p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">退出登录</button>
+        </form>
+    </p>
+</div>
+</body>
+</html>

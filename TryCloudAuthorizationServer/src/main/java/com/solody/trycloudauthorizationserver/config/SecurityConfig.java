@@ -107,6 +107,7 @@ public class SecurityConfig {
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(org.springframework.security.oauth2.core.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .redirectUri("http://localhost:8080/login/oauth2/code/oidc-client")
+                .redirectUri("http://localhost:8090/login/oauth2/code/my-oidc-client")
                 .postLogoutRedirectUri("http://localhost:8080/")
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.REFRESH_TOKEN)
