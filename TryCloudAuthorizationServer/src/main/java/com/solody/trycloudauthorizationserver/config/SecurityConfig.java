@@ -106,7 +106,7 @@ public class SecurityConfig {
                 .clientId("oidc-client")
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(org.springframework.security.oauth2.core.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .redirectUri("http://localhost:8080/login/oauth2/code/client-oidc")
+                .redirectUri("http://localhost:8080/login/oauth2/code/oidc-client")
                 .postLogoutRedirectUri("http://localhost:8080/")
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.REFRESH_TOKEN)
@@ -115,7 +115,9 @@ public class SecurityConfig {
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
         JdbcRegisteredClientRepository jdbcRegisteredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-        jdbcRegisteredClientRepository.save(registration);
+        if (jdbcRegisteredClientRepository.findByClientId("oidc-client") == null) {
+            jdbcRegisteredClientRepository.save(registration);
+        }
         return jdbcRegisteredClientRepository;
     }
 
