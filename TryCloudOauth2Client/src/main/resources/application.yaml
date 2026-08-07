@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: TryCloudOauth2Client
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc-client:
+            provider: my-oidc-provider
+            client-id: oidc-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            scope: openid,profile
+        provider:
+          my-oidc-provider:
+            issuer-uri: http://localhost:8080
+server:
+  port: 8091
+  servlet:
+    session:
+      # Avoid colliding with the Authorization Server's JSESSIONID on localhost
+      # (cookie domain is host-only; ports are ignored).
+      cookie:
+        name: OAUTH2_CLIENT_SESSION

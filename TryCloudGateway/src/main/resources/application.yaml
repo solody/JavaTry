@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      username: nacos
+      password: 123
+      discovery:
+        server-addr: nacos-server:8848
+        fail-fast: true
+    gateway:
+      server:
+        webflux:
+          routes:
+            # OAuth2 Client: 302 Location often points to authorization-server — do NOT rewrite Host.
+            - id: oauth2-login
+              uri: lb://oauth2-login
+              predicates:
+                - Host=oauth2-login.**
+              filters:
+                - PreserveHostHeader
+            - id: nacos-server
+              uri: http://nacos-server:8080
+              predicates:
+                - Host=nacos-server.**
+              filters:
+                - PreserveHostHeader
+            - id: authorization-server
+              uri: lb://authorization-server
+              predicates:
+                - Host=authorization-server.**
+              filters:
+                - PreserveHostHeader

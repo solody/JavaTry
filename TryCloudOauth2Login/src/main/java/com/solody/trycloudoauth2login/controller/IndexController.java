@@ -14,4 +14,9 @@ public class IndexController {
         model.addAttribute("user", user);
         return "index";
     }
+
+    @GetMapping("/provider-logged-out")
+    public String providerLoggedOut() {
+        return "provider-logged-out";
+    }
 }

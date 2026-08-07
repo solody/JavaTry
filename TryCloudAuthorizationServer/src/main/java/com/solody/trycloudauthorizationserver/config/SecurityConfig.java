@@ -89,7 +89,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(DataSource dataSource) {
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("user")
-                .password("password")
+                .password("pass")
                 .roles("USER")
                 .build();
 
@@ -106,9 +106,10 @@ public class SecurityConfig {
                 .clientId("oidc-client")
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(org.springframework.security.oauth2.core.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .redirectUri("http://localhost:8080/login/oauth2/code/oidc-client")
-                .redirectUri("http://localhost:8090/login/oauth2/code/my-oidc-client")
-                .postLogoutRedirectUri("http://localhost:8080/")
+                .redirectUri("http://oauth2-login.solody.com/login/oauth2/code/oidc-client")
+                .redirectUri("http://oauth2-login.solody.com/login/oauth2/code/my-oidc-client")
+                .redirectUri("http://localhost:8091/authorize/oauth2/code/oidc-client")
+                .postLogoutRedirectUri("http://oauth2-login.solody.com/provider-logged-out")
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.REFRESH_TOKEN)
                 .scope(OidcScopes.OPENID)

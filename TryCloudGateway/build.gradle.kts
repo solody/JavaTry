@@ -6,7 +6,7 @@ plugins {
 
 group = "com.solody"
 version = "0.0.1-SNAPSHOT"
-description = "TryCloudOauth2Login"
+description = "TryCloudGateway"
 
 java {
     toolchain {
@@ -31,13 +31,11 @@ dependencyManagement {
 }
 
 dependencies {
+    implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-security-oauth2-client")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-oauth2-client-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+    implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.projectreactor:reactor-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation(libs.mockito)

@@ -1,6 +1,13 @@
 spring:
   application:
-    name: TryCloudOauth2Login
+    name: oauth2-login
+  cloud:
+    nacos:
+      username: nacos
+      password: 123
+      discovery:
+        server-addr: nacos-server:8848
+        fail-fast: true
   security:
     oauth2:
       client:
@@ -13,9 +20,18 @@ spring:
             scope: openid,profile
         provider:
           my-oidc-provider:
-            issuer-uri: http://localhost:8080
+            issuer-uri: http://authorization-server:8080
+            # Browser redirects (public DNS via Gateway)
+            authorization-uri: http://authorization-server.solody.com/oauth2/authorize
+            # Server-to-server (Docker network). OIDC UserInfo is /userinfo, not /oauth2/userinfo.
+            token-uri: http://authorization-server:8080/oauth2/token
+            jwk-set-uri: http://authorization-server:8080/oauth2/jwks
+            user-info-uri: http://authorization-server:8080/userinfo
+            # end_session_endpoint has no YAML property; overridden in SecurityConfig
+            # to http://authorization-server.solody.com/connect/logout
 server:
-  port: 8090
+  # With Gateway PreserveHostHeader + X-Forwarded-*, generate public Host in redirects.
+  forward-headers-strategy: framework
   servlet:
     session:
       # Avoid colliding with the Authorization Server's JSESSIONID on localhost

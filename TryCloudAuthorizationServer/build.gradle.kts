@@ -18,11 +18,23 @@ repositories {
     mavenCentral()
 }
 
+extra["springCloudVersion"] = "2025.1.2"
+extra["springCloudAlibabaVersion"] = "2025.1.0.0"
+
 val mockitoAgent = configurations.create(/* name = */ "mockitoAgent")
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${property("springCloudAlibabaVersion")}")
+    }
+}
+
 dependencies {
+    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-security-oauth2-authorization-server")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     testImplementation("org.springframework.boot:spring-boot-starter-security-oauth2-authorization-server-test")
     testImplementation("org.springframework.boot:spring-boot-starter-security-test")

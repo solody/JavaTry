@@ -1,10 +1,18 @@
 spring:
   application:
-    name: TryCloudAuthorizationServer
+    name: authorization-server
   sql:
     init:
       mode: always
+  cloud:
+    nacos:
+      username: nacos
+      password: 123
+      discovery:
+        server-addr: nacos-server:8848
+        fail-fast: true
 server:
+  forward-headers-strategy: framework
   servlet:
     session:
       cookie:

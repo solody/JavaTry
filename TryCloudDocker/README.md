@@ -1,0 +1,3 @@
+- Nacos Server: http://nacos-server.solody.com
+- Authorization Server: http://authorization-server.solody.com
+- OAuth2 Login: http://oauth2-login.solody.com
