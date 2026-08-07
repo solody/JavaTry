@@ -1,6 +1,13 @@
 spring:
   application:
-    name: TryCloudResourceServer
+    name: resource-server
+  cloud:
+    nacos:
+      username: nacos
+      password: 123
+      discovery:
+        server-addr: nacos-server:8848
+        fail-fast: true
   security:
     oauth2:
       resourceserver:

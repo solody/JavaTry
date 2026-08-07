@@ -7,6 +7,14 @@ services:
     depends_on:
       - authorization-server
 
+  resource-server:
+    hostname: resource-server
+    image: eclipse-temurin:26-jdk
+#    ports:
+#      - "8090:8090"
+    depends_on:
+      - authorization-server
+
   oauth2-login:
     hostname: oauth2-login
     image: eclipse-temurin:26-jdk

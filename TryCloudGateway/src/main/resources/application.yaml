@@ -13,6 +13,12 @@ spring:
         webflux:
           routes:
             # OAuth2 Client: 302 Location often points to authorization-server — do NOT rewrite Host.
+            - id: resource-server
+              uri: lb://resource-server
+              predicates:
+                - Host=resource-server.**
+              filters:
+                - PreserveHostHeader
             - id: oauth2-login
               uri: lb://oauth2-login
               predicates:
