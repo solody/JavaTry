@@ -21,8 +21,17 @@ public class MessagesController {
     @GetMapping("/messages")
     public ResponseEntity<List<String>> messages() {
         String[] messages = this.restClient.get()
-                .uri("http://localhost:8092/messages")
+                .uri("http://resource-server:8092/messages")
                 .attributes(clientRegistrationId("oidc-client"))
+                .retrieve()
+                .body(String[].class);
+        return ResponseEntity.ok(Arrays.asList(messages));
+    }
+
+    @GetMapping("/messages-unauth")
+    public ResponseEntity<List<String>> messagesUnauth() {
+        String[] messages = RestClient.builder().build().get()
+                .uri("http://resource-server:8092/messages")
                 .retrieve()
                 .body(String[].class);
         return ResponseEntity.ok(Arrays.asList(messages));

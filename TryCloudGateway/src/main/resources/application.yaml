@@ -19,6 +19,12 @@ spring:
                 - Host=resource-server.**
               filters:
                 - PreserveHostHeader
+            - id: oauth2-client
+              uri: lb://oauth2-client
+              predicates:
+                - Host=oauth2-client.**
+              filters:
+                - PreserveHostHeader
             - id: oauth2-login
               uri: lb://oauth2-login
               predicates:
