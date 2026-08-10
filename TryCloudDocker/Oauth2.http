@@ -71,4 +71,6 @@ grant_type=authorization_code&code={{authorizationCode}}&redirect_uri={{redirect
     console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
 %}
 
-###
+### Client request with access token by token exchange
+GET http://oauth2-client.solody.com/messages-token-exchange
+Authorization: Bearer {{accessToken}}

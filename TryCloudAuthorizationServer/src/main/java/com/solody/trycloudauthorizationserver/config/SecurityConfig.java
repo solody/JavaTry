@@ -106,6 +106,7 @@ public class SecurityConfig {
                 .clientId("oidc-client")
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(org.springframework.security.oauth2.core.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .redirectUri("http://http-client.solody.com/code")
                 .redirectUri("http://oauth2-login.solody.com/login/oauth2/code/oidc-client")
                 .redirectUri("http://oauth2-client.solody.com/authorize/oauth2/code/oidc-client")
                 .postLogoutRedirectUri("http://oauth2-login.solody.com/provider-logged-out")

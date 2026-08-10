@@ -28,6 +28,16 @@ public class MessagesController {
         return ResponseEntity.ok(Arrays.asList(messages));
     }
 
+    @GetMapping("/messages-token-exchange")
+    public ResponseEntity<List<String>> messagesTokenExchange() {
+        String[] messages = this.restClient.get()
+                .uri("http://resource-server:8092/messages-token-exchange")
+                .attributes(clientRegistrationId("token-exchange-client"))
+                .retrieve()
+                .body(String[].class);
+        return ResponseEntity.ok(Arrays.asList(messages));
+    }
+
     @GetMapping("/messages-unauth")
     public ResponseEntity<List<String>> messagesUnauth() {
         String[] messages = RestClient.builder().build().get()

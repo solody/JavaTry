@@ -18,6 +18,12 @@ spring:
             client-secret: secret
             authorization-grant-type: authorization_code
             scope: openid,profile
+          token-exchange-client:
+            provider: my-oidc-provider
+            client-id: oidc-client
+            client-secret: secret
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:token-exchange
+            scope: openid,profile
         provider:
           my-oidc-provider:
             issuer-uri: http://authorization-server:8080
