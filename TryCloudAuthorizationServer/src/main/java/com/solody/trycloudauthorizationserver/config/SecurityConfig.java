@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.OAuth2Au
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
@@ -110,9 +111,10 @@ public class SecurityConfig {
                 .redirectUri("http://oauth2-login.solody.com/login/oauth2/code/oidc-client")
                 .redirectUri("http://oauth2-client.solody.com/authorize/oauth2/code/oidc-client")
                 .postLogoutRedirectUri("http://oauth2-login.solody.com/provider-logged-out")
-                .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.TOKEN_EXCHANGE)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(AuthorizationGrantType.TOKEN_EXCHANGE)
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
