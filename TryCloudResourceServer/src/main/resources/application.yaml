@@ -12,6 +12,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://authorization-server:8080
+          # Must match JWT iss (public URL via Gateway / forward-headers)
+          issuer-uri: http://authorization-server.solody.com
+          jwk-set-uri: http://authorization-server:8080/oauth2/jwks
 server:
   port: 8092

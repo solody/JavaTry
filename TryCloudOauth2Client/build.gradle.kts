@@ -32,6 +32,8 @@ dependencyManagement {
 
 dependencies {
     implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
+    implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
+    testImplementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server-test")
     implementation("org.springframework.boot:spring-boot-starter-security-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-security-oauth2-client-test")

@@ -68,8 +68,32 @@ grant_type=authorization_code&code={{authorizationCode}}&redirect_uri={{redirect
 
 > {%
     client.global.set("accessToken", response.body.access_token);
+    client.global.set("refreshToken", response.body.refresh_token);
     console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
 %}
+
+### Refresh exchange
+# Authorization: Basic base64(oidc-client:secret)
+< {%
+    const base64ClientIdSecret = `${request.environment.get("clientId")}:${request.environment.get("clientSecret")}`;
+    client.global.set("base64ClientIdSecret", base64ClientIdSecret);
+%}
+POST {{baseUrl}}/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {{clientId}} {{clientSecret}}
+
+grant_type=refresh_token&refresh_token={{refreshToken}}&scope=openid
+
+> {%
+    client.global.set("accessToken", response.body.access_token);
+    client.global.set("refreshToken", response.body.refresh_token);
+
+    console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
+%}
+
+### Client request with access token by token exchange
+GET http://oauth2-client.solody.com/resource-test
+Authorization: Bearer {{accessToken}}
 
 ### Client request with access token by token exchange
 GET http://oauth2-client.solody.com/messages-token-exchange

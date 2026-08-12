@@ -1,11 +1,17 @@
 package com.solody.trycloudoauth2client.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.security.oauth2.client.web.ClientAttributes.clientRegistrationId;
@@ -29,9 +35,9 @@ public class MessagesController {
     }
 
     @GetMapping("/messages-token-exchange")
-    public ResponseEntity<List<String>> messagesTokenExchange() {
+    public ResponseEntity<List<String>> messagesTokenExchange(JwtAuthenticationToken jwtAuthentication) {
         String[] messages = this.restClient.get()
-                .uri("http://resource-server:8092/messages-token-exchange")
+                .uri("http://resource-server:8092/messages")
                 .attributes(clientRegistrationId("token-exchange-client"))
                 .retrieve()
                 .body(String[].class);
@@ -45,5 +51,15 @@ public class MessagesController {
                 .retrieve()
                 .body(String[].class);
         return ResponseEntity.ok(Arrays.asList(messages));
+    }
+
+    @GetMapping("/resource-test")
+    public ResponseEntity<List<String>> resourceTest() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        String username = authentication.getName();
+        Object principal = authentication.getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        return ResponseEntity.ok(Arrays.asList("Resource test endpoint is working! %s".formatted(username)));
     }
 }

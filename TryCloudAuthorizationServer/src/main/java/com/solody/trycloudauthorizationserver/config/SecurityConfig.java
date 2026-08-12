@@ -112,6 +112,7 @@ public class SecurityConfig {
                 .postLogoutRedirectUri("http://oauth2-login.solody.com/provider-logged-out")
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.TOKEN_EXCHANGE)
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
@@ -156,6 +157,10 @@ public class SecurityConfig {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
+        // Fixed public issuer so JWT iss is stable whether the token endpoint is
+        // reached via Gateway (authorization-server.solody.com) or Docker DNS.
+        return AuthorizationServerSettings.builder()
+                .issuer("http://authorization-server.solody.com")
+                .build();
     }
 }

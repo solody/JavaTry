@@ -17,8 +17,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // ...
-                .oauth2Client(Customizer.withDefaults());
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/messages-token-exchange", "/resource-test").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .oauth2Client(Customizer.withDefaults())
+                .oauth2ResourceServer(resourceServer -> resourceServer
+                        .jwt(Customizer.withDefaults())
+                );
         return http.build();
     }
 
