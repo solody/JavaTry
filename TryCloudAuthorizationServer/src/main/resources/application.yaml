@@ -23,3 +23,6 @@ app:
     username: root
     password: 123
     pool-size: 30
+  sms:
+    codes:
+      "13800000000": "123456"
