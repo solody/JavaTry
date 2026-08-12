@@ -46,8 +46,7 @@ public class SecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) {
 
         http
                 .oauth2AuthorizationServer((authorizationServer) -> {
@@ -73,8 +72,7 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated()
@@ -107,9 +105,13 @@ public class SecurityConfig {
                 .clientId("oidc-client")
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(org.springframework.security.oauth2.core.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                // For JetBrains http-client testing in TryCloudDocker/Oauth2.http.
                 .redirectUri("http://http-client.solody.com/code")
+                // For TryCloudOauth2Login to login with OIDC.
                 .redirectUri("http://oauth2-login.solody.com/login/oauth2/code/oidc-client")
+                // For TryCloudOauth2Client RestClient to exchange tokens to call another resource server.
                 .redirectUri("http://oauth2-client.solody.com/authorize/oauth2/code/oidc-client")
+                // For TryCloudOauth2Login logout to redirect back after the authorization-server logout.
                 .postLogoutRedirectUri("http://oauth2-login.solody.com/provider-logged-out")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
@@ -120,9 +122,9 @@ public class SecurityConfig {
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
         JdbcRegisteredClientRepository jdbcRegisteredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-        if (jdbcRegisteredClientRepository.findByClientId("oidc-client") == null) {
-            jdbcRegisteredClientRepository.save(registration);
-        }
+        // Clear the oauth2_registered_client table to avoid duplicate client registration on each application restart.
+        jdbcTemplate.execute("DELETE FROM oauth2_registered_client;");
+        jdbcRegisteredClientRepository.save(registration);
         return jdbcRegisteredClientRepository;
     }
 
@@ -162,7 +164,7 @@ public class SecurityConfig {
         // Fixed public issuer so JWT iss is stable whether the token endpoint is
         // reached via Gateway (authorization-server.solody.com) or Docker DNS.
         return AuthorizationServerSettings.builder()
-                .issuer("http://authorization-server.solody.com")
+                .issuer("http://authorization-server:8080")
                 .build();
     }
 }

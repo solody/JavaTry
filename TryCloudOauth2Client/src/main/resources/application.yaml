@@ -13,7 +13,7 @@ spring:
       resourceserver:
         jwt:
           # Must match JWT iss (public URL via Gateway / forward-headers)
-          issuer-uri: http://authorization-server.solody.com
+          issuer-uri: http://authorization-server:8080
           # Fetch keys over Docker network (avoid discovery hitting public Host from inside the container)
           jwk-set-uri: http://authorization-server:8080/oauth2/jwks
       client:

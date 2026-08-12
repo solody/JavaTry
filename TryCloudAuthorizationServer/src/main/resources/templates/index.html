@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization Server</title>
+</head>
+<body>
+<h1>Authorization Server</h1>
+
+<div th:if="${user != null}">
+    <p>已登录</p>
+    <ul>
+        <li>Username: <span th:text="${user.username}">user</span></li>
+    </ul>
+    <p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">退出登录</button>
+        </form>
+    </p>
+</div>
+</body>
+</html>
