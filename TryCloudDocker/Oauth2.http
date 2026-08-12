@@ -72,6 +72,24 @@ grant_type=authorization_code&code={{authorizationCode}}&redirect_uri={{redirect
     console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
 %}
 
+### PhoneSms token exchange
+# Authorization: Basic base64(oidc-client:secret)
+< {%
+    const base64ClientIdSecret = `${request.environment.get("clientId")}:${request.environment.get("clientSecret")}`;
+    client.global.set("base64ClientIdSecret", base64ClientIdSecret);
+%}
+POST {{baseUrl}}/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {{clientId}} {{clientSecret}}
+
+grant_type=urn:ietf:params:oauth:grant-type:phone_sms&phone={{phoneNumber}}&code={{smsCode}}&redirect_uri={{redirectUri}}&code_verifier={{codeVerifier}}&scope=openid
+
+> {%
+    client.global.set("accessToken", response.body.access_token);
+    client.global.set("refreshToken", response.body.refresh_token);
+    console.log("access_token saved; paste into TrySpringSecurityRS http-client.env.json or use client.global");
+%}
+
 ### Refresh exchange
 # Authorization: Basic base64(oidc-client:secret)
 < {%

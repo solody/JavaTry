@@ -13,6 +13,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class PhoneSmsGrantAuthenticationConverter implements AuthenticationConverter {
 
     private static final String PHONE_PARAMETER = "phone";
@@ -44,7 +48,16 @@ public class PhoneSmsGrantAuthenticationConverter implements AuthenticationConve
             throwInvalidRequest(SMS_CODE_PARAMETER);
         }
 
-        return new PhoneSmsGrantAuthenticationToken(phone, code, clientPrincipal);
+        Set<String> scopes = null;
+        String scope = parameters.getFirst(OAuth2ParameterNames.SCOPE);
+        if (StringUtils.hasText(scope)) {
+            if (parameters.get(OAuth2ParameterNames.SCOPE).size() != 1) {
+                throwInvalidRequest(OAuth2ParameterNames.SCOPE);
+            }
+            scopes = new HashSet<>(Arrays.asList(scope.split(" ")));
+        }
+
+        return new PhoneSmsGrantAuthenticationToken(phone, code, clientPrincipal, scopes);
     }
 
     private static MultiValueMap<String, String> getParameters(HttpServletRequest request) {
